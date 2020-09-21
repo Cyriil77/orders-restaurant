@@ -1,12 +1,15 @@
 import React, { useState, useContext } from 'react';
+import { Link } from 'react-router-dom'
 import FirebaseContext from "../Firebase/Context";
 
 
-export default function Signup() {
+export default function Signup(props) {
 
 
+    // Get functions with context
     const signupAuthContext = useContext(FirebaseContext);
-    
+
+    // Datas for 2 inputs
     const datas = {
         mail: '',
         password: ''
@@ -15,26 +18,46 @@ export default function Signup() {
     // get datas for update it
     const [signupDatas, setSignupDatas] = useState(datas);
 
+    // Error
+    const [err, setErr] = useState('');
 
-    const handleChange = e => {
+    // Destructuring -> mail and password is in object datas
+    const { mail, password } = signupDatas;
+
+    // detect if string is empty else display the errors
+    const error = err !== '' && <span>{err.message}</span>;
+
+
+    const handleChange = (e) => {
+
         // Get all datas, cibling id, get value, update
-        // cibling id: mail = mail / password = password
-        setSignupDatas({...signupDatas, [e.target.id]: e.target.value});
+        // cibling id: mail = mail / password = password with the new value
+        setSignupDatas({ ...signupDatas, [e.target.id]: e.target.value });
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        signupAuthContext.signupUser(signupDatas.mail, signupDatas.password)
+
+        signupAuthContext.signupUser(mail, password)
+            .then(() => {
+                setSignupDatas({ ...datas });
+            })
+            .catch((err) => {
+                setErr(err);
+            })
     }
+
+
 
     return (
         <div>
             Signup
             <form onSubmit={handleSubmit}>
-
+                {error}
                 <input
                     type="text"
                     placeholder="email"
+                    value={mail}
                     onChange={handleChange}
                     id="mail">
                 </input>
@@ -42,6 +65,7 @@ export default function Signup() {
                 <input
                     type="password"
                     placeholder="Mot de passe"
+                    value={password}
                     onChange={handleChange}
                     id="password">
                 </input>
@@ -49,6 +73,8 @@ export default function Signup() {
                 <input
                     type="submit">
                 </input>
+
+                <Link to='login'> Déjà inscrit ? Se connecter </Link>
 
             </form>
         </div>

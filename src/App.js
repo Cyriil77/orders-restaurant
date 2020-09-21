@@ -7,6 +7,7 @@ import Welcome from './Components/Welcome/Welcome'
 import Login from './Components/Login/Login'
 import Signup from './Components/Signup/Signup'
 import ErrorPage from './Components/ErrorPage/ErrorPage'
+import Admin from './Components/Admin/Admin'
 
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/welcome" component={Welcome} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
+          <Route path="/admin" component={Admin}></Route>
           <Route component={ErrorPage} />
         </Switch>
 
