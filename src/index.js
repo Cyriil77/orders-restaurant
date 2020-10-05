@@ -7,6 +7,7 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
 
+  // Firebase and firebaseContext for get all methods
 
   <React.StrictMode>
     {/* New instance of Firebase with method */}

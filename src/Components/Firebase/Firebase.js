@@ -17,13 +17,23 @@ const firebaseConfig = {
 export default class Firebase {
     constructor() {
         app.initializeApp(firebaseConfig);
+
+        // Access authentification
         this.auth = app.auth();
-        this.db = app.firestore().collection('orders');
+
+        // Acess database
+        this.userDb = app.firestore().collection('user');
+        this.orderDb = app.firestore().collection('orders');
     }
 
     // Method I can call in all files and use it with the provider who is index.js at the root
-    // Signup
+
+
+    // Signup auth
     signupUser = (email, password) => this.auth.createUserWithEmailAndPassword(email, password);
+
+    // Send user signup datas in database
+    setUserId = (uid, email) => this.userDb.doc(uid).set({email: email, uid: uid})
 
     // Login
     loginUser = (email, password) => this.auth.signInWithEmailAndPassword(email, password);
@@ -31,10 +41,13 @@ export default class Firebase {
     // Disconnected
     signoutUser = () => {this.auth.signOut()};
 
-    // Send orders in database
-    setOrders = (name, price, compositions) => this.db.doc().set({nom: name, prix: price, compo: compositions});
+    // Send orders in database for admin
+    setMenu = (name, price, compositions) => this.orderDb.doc().set({nom: name, prix: price, compo: compositions});
 
+    // Get datas
+    displayOrder = () => this.orderDb;
 
-    displayOrder = () => this.db;
+    // addOrder = () => this.addUserDb.doc().set({})
+
 
 }

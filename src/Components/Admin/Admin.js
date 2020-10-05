@@ -28,7 +28,7 @@ export default function Admin(props) {
         e.preventDefault();
 
         // Add orders in firebase
-        firebase.setOrders(name, price, compositions);
+        firebase.setMenu(name, price, compositions);
 
         // Reset inputs
         setOrders({ ...datas });

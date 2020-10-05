@@ -7,7 +7,7 @@ export default function Signup(props) {
 
 
     // Get functions with context
-    const signupAuthContext = useContext(FirebaseContext);
+    const firebase = useContext(FirebaseContext);
 
     // Datas for 2 inputs
     const datas = {
@@ -38,9 +38,12 @@ export default function Signup(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        signupAuthContext.signupUser(mail, password)
-            .then(() => {
+        firebase.signupUser(mail, password)
+            .then((result) => {
                 setSignupDatas({ ...datas });
+
+                // Add user on database
+                firebase.setUserId(result.user.uid, result.user.email, result.user.uid)
             })
             .catch((err) => {
                 setErr(err);

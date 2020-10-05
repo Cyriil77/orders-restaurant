@@ -32,17 +32,17 @@ export default function Login(props) {
 
         // Send data to firebase
         firebase.loginUser(mail, password)
-        .then(() => {
-            // Redirection in Welcome componenent
-            props.history.push('./welcome');
+            .then(() => {
+                // Redirection in Welcome componenent
+                props.history.push('./welcome');
 
-            // Reset datas
-            setLoginDatas({...datas});
-            
-        })
-        .catch((err) => {
-            setError(err);
-        })
+                // Reset datas
+                setLoginDatas({ ...datas });
+
+            })
+            .catch((err) => {
+                setError(err);
+            })
     };
 
     const error = err !== '' && <span>{err.message}</span>;
