@@ -8,49 +8,44 @@ export default function Orders(props) {
     const [orders, setOrders] = useState(0);
     const orderContextt = useContext(orderContext);
 
-
     const addQuantity = () => {
         setOrders(orders + 1);
 
-        // Vérify if id exist in context
-        if (props.id in orderContextt == true) {
 
-            // Loop in datas in context
-            orderContextt.forEach(element => {
+        let found = false;
+        let index = 0;
 
-                // Verify ID
-                if (element.id == props.id) {
+        for (let i = 0; i < orderContextt.length; i++) {
 
-                    // Update the context with the new value of the exact order
-                    element.quantity = orders;
-                };
-            });
+            // Verify if index is push
+            if (orderContextt[i].id == props.id) {
+                found = true;
+                index = i;
+                break;
+            }
+
+        }
+
+        if (found) {
+
+            // Update quantity
+            orderContextt[index].quantity = orders;
+
         } else {
-            // If the id of order is not created with this datas -> push the the value in context
+            // Push value in context
             orderContextt.push({
                 quantity: orders,
                 name: props.name,
                 id: props.id
             });
-        };
+        }
 
-    };
+
+    }
 
     const removeQuantity = () => {
         orders === 0 ? setOrders(0) : setOrders(orders - 1);
-        if (props.id in orderContextt == true) {
 
-            // Loop in datas in context
-            orderContextt.forEach(element => {
-
-                // Verify ID
-                if (element.id == props.id) {
-
-                    // Update the context with the new value of the exact order
-                    element.quantity = orders;
-                }
-            });
-        }
     };
 
     return (

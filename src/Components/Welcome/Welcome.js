@@ -48,8 +48,8 @@ export default function Welcome(props) {
                 <button onClick={firebase.signoutUser}>Se déconnecter</button>
 
                 <ContextOrder.Provider value={[]}>
-                    {order.map((datas, index) => (
-                        <Orders name={datas.nom} price={datas.prix} compositions={datas.compo} uid={userSession} id={datas.id} />
+                    {order.map((datas, index, key) => (
+                        <Orders key={datas.id} name={datas.nom} price={datas.prix} compositions={datas.compo} uid={userSession} id={datas.id} />
                     ))}
                     <ValidateOrder />
                 </ContextOrder.Provider>
