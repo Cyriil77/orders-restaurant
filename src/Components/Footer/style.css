@@ -1,0 +1,9 @@
+.footer{
+    width: 100%;
+    height: 150px;
+    background-color: #665df5;
+}
+
+.footer h2{
+    color: white;
+}

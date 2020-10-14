@@ -1,9 +1,11 @@
 import React from 'react'
 
+import './style.css'
+
 export default function Footer() {
     return (
-        <div>
-            <h2>Je suis un footer</h2>
+        <div className="footer">
+            <h2>Footer</h2>
         </div>
     )
 }

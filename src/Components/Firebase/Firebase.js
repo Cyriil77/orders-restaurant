@@ -33,21 +33,37 @@ export default class Firebase {
     signupUser = (email, password) => this.auth.createUserWithEmailAndPassword(email, password);
 
     // Send user signup datas in database
-    setUserId = (uid, email) => this.userDb.doc(uid).set({email: email, uid: uid})
+    setUserId = (uid, email) => this.userDb.doc(uid).set({ email: email, uid: uid })
 
     // Login
     loginUser = (email, password) => this.auth.signInWithEmailAndPassword(email, password);
 
     // Disconnected
-    signoutUser = () => {this.auth.signOut()};
+    signoutUser = () => { this.auth.signOut() };
 
     // Send orders in database for admin
-    setMenu = (name, price, compositions) => this.orderDb.doc().set({nom: name, prix: price, compo: compositions});
+    setMenu = (name, price, compositions, id) => this.orderDb.doc().set({
+        nom: name,
+        prix: price,
+        compo: compositions,
+        id: id
+    });
 
     // Get datas
     displayOrder = () => this.orderDb;
+    displayOrderr = () => this.userDb;
 
-    // addOrder = () => this.addUserDb.doc().set({})
+    addOrder = (uid, mail, obj) => this.userDb.doc(uid).set({
+        uid: uid,
+        email: mail,
+        futurOrder: [
+            {
+                date: new Date(),
+                obj
+            }
+        ]
+    })
+
 
 
 }

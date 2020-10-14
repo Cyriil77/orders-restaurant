@@ -1,0 +1,30 @@
+.container-orders{
+    display: flex;
+}
+
+.container-orders{
+    display: flex;
+}
+
+.ctnr-datas{
+    border-right: 1px solid black;
+    margin: 15px 15px;
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+
+.ctnr-datas input{
+    width: 50%;
+    color: white;
+    background-color: #665df5;
+    border: none;
+    padding: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+li{
+    list-style-type: none;
+    
+}

@@ -1,6 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import FirebaseContext from '../Firebase/Context';
 
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
+
 
 export default function Admin(props) {
 
@@ -27,8 +30,19 @@ export default function Admin(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Add orders in firebase
-        firebase.setMenu(name, price, compositions);
+        let datas;
+
+        firebase.displayOrder().orderBy('id', 'desc').limit(1).get().then(querySnapshot => {
+            querySnapshot.forEach((doc) =>
+                datas = doc.data().id)
+
+            console.log(datas)
+
+            // Add orders in firebase
+            firebase.setMenu(name, price, compositions, datas + 1)
+
+
+        }).catch(error => console.log(error));
 
         // Reset inputs
         setOrders({ ...datas });
@@ -51,42 +65,48 @@ export default function Admin(props) {
         }
     }, [userSession]);
 
+
+
     return (
-        <div>
-            <p>Ajouter un plat</p>
-            <form onSubmit={handleSubmit}>
+        <>
+            <Header />
+            <div>
+                <p>Ajouter un plat</p>
+                <form onSubmit={handleSubmit}>
 
-                <label>Nom du plat</label>
-                <input type="text"
-                    placeholder="pate boulo"
-                    id="name"
-                    value={name}
-                    onChange={handleChange}>
-                </input>
+                    <label>Nom du plat</label>
+                    <input type="text"
+                        placeholder="pate boulo"
+                        id="name"
+                        value={name}
+                        onChange={handleChange}>
+                    </input>
 
-                <label>Prix</label>
-                <input type="number"
-                    placeholder="10"
-                    id="price"
-                    value={price}
-                    onChange={handleChange}>
-                </input>
+                    <label>Prix</label>
+                    <input type="number"
+                        placeholder="10"
+                        id="price"
+                        value={price}
+                        onChange={handleChange}>
+                    </input>
 
-                <label>Composition</label>
-                <input type="text"
-                    placeholder="pate, bolognaise, oignons"
-                    id="compositions"
-                    value={compositions}
-                    onChange={handleChange}>
-                </input>
+                    <label>Composition</label>
+                    <input type="text"
+                        placeholder="pate, bolognaise, oignons"
+                        id="compositions"
+                        value={compositions}
+                        onChange={handleChange}>
+                    </input>
 
-                <input type="submit"></input>
+                    <input type="submit"></input>
 
-                <button
-                    onClick={firebase.signoutUser}>
-                    Se déconnecter
+                    <button
+                        onClick={firebase.signoutUser}>
+                        Se déconnecter
                 </button>
-            </form>
-        </div>
+                </form>
+            </div>
+            <Footer />
+        </>
     )
 }

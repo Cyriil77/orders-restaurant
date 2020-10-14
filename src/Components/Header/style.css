@@ -1,0 +1,49 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    background-color:  #665df5;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header h2{
+    margin-left: 50px;
+    color: white;
+}
+
+header .nav-disconnected{
+    display: flex;
+}
+
+header nav{
+    margin-right: 50px;
+}
+
+header ul{
+    margin: 0;
+    list-style-type: none;
+}
+
+header a{
+    color: white;
+    text-decoration: none;
+    padding: 4px;
+}
+
+header a:nth-child(2){
+    margin: 0 15px;
+}
+
+header a:hover{
+    border-bottom: 1px solid white;
+}
+
+header button{
+    margin-right: 50px;
+    cursor: pointer;
+}

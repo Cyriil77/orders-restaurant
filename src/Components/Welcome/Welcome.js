@@ -2,12 +2,15 @@ import React, { useState, useContext, useEffect } from 'react';
 
 import Orders from '../Orders/Orders';
 import ValidateOrder from '../ValidateOrder/ValidateOrder';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
+
 
 // Firebase context (methods)
 import FirebaseContext from '../Firebase/Context';
 
 // Context order
-import ContextOrder from '../Context/ContextOrder';
+import ContextOrder from '../ContextOrder/ContextOrder';
 
 
 
@@ -22,7 +25,7 @@ export default function Welcome(props) {
     useEffect(() => {
 
         let listener = firebase.auth.onAuthStateChanged(user => {
-            user ? setUserSession(user.uid) : props.history.push('/');
+            user ? setUserSession(user) : props.history.push('/');
         })
 
         firebase.displayOrder().get()
@@ -44,15 +47,18 @@ export default function Welcome(props) {
         <div><p>Loading</p></div>
     ) : (
             <div>
-                Welcome {userSession.email}
-                <button onClick={firebase.signoutUser}>Se déconnecter</button>
+                <Header email={userSession.email} />
 
                 <ContextOrder.Provider value={[]}>
-                    {order.map((datas, index, key) => (
-                        <Orders key={datas.id} name={datas.nom} price={datas.prix} compositions={datas.compo} uid={userSession} id={datas.id} />
-                    ))}
+                    <div className="container-orders">
+                        {order.map((datas, index, key) => (
+                            <Orders key={datas.id} name={datas.nom} price={datas.prix} compositions={datas.compo} uid={userSession.uid} id={datas.id} />
+                        ))}
+                    </div>
                     <ValidateOrder />
                 </ContextOrder.Provider>
+                <Footer />
+
             </div>
 
         )

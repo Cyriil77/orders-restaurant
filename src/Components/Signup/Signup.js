@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom'
 import FirebaseContext from "../Firebase/Context";
+import './style.css';
+import background from '../../image/Account.png';
 
 
 export default function Signup(props) {
@@ -53,33 +55,57 @@ export default function Signup(props) {
 
 
     return (
-        <div>
-            Signup
-            <form onSubmit={handleSubmit}>
-                {error}
-                <input
-                    type="text"
-                    placeholder="email"
-                    value={mail}
-                    onChange={handleChange}
-                    id="mail">
-                </input>
+        <div className="container">
 
-                <input
-                    type="password"
-                    placeholder="Mot de passe"
-                    value={password}
-                    onChange={handleChange}
-                    id="password">
-                </input>
 
-                <input
-                    type="submit">
-                </input>
 
-                <Link to='login'> Déjà inscrit ? Se connecter </Link>
+            {error}
+            <form className="form" onSubmit={handleSubmit}>
+
+                <div className="ctnr-form">
+                    <h1 className="login">S' inscrire</h1>
+
+                    <div className="ctnr-input">
+                        <input
+                            type="text"
+                            placeholder="email"
+                            value={mail}
+                            onChange={handleChange}
+                            id="mail">
+                        </input>
+
+                        <input
+                            type="password"
+                            placeholder="Mot de passe"
+                            value={password}
+                            onChange={handleChange}
+                            id="password">
+                        </input>
+
+                        <div>
+                            <input
+                                type="submit">
+                            </input>
+
+                            <Link to='signup'> Mot de passe oublié ?</Link>
+                        </div>
+                        <Link className="not-signup" to='login'> Déjà insrit ? <span>Se connecter</span>  </Link>
+                    </div>
+                </div>
+
+
+
+
+
+
+
 
             </form>
+
+
+            <div className="ctnr-img">
+                <img src={background}></img>
+            </div>
         </div>
     )
 }

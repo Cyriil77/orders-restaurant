@@ -1,24 +1,26 @@
 import React, { useState, useContext } from 'react';
 
-import orderContext from '../Context/ContextOrder';
+import './style.css';
+
+import orderContext from '../ContextOrder/ContextOrder';
 
 
 export default function Orders(props) {
 
     const [orders, setOrders] = useState(0);
-    const orderContextt = useContext(orderContext);
+    const order = useContext(orderContext);
+
+
+    let found = false;
+    let index = 0;
 
     const addQuantity = () => {
         setOrders(orders + 1);
 
-
-        let found = false;
-        let index = 0;
-
-        for (let i = 0; i < orderContextt.length; i++) {
+        for (let i = 0; i < order.length; i++) {
 
             // Verify if index is push
-            if (orderContextt[i].id == props.id) {
+            if (order[i].id == props.id) {
                 found = true;
                 index = i;
                 break;
@@ -29,34 +31,52 @@ export default function Orders(props) {
         if (found) {
 
             // Update quantity
-            orderContextt[index].quantity = orders;
+            order[index].quantity = orders;
 
         } else {
             // Push value in context
-            orderContextt.push({
+            order.push({
                 quantity: orders,
                 name: props.name,
                 id: props.id
             });
         }
 
-
     }
 
     const removeQuantity = () => {
         orders === 0 ? setOrders(0) : setOrders(orders - 1);
 
+        for (let i = 0; i < order.length; i++) {
+
+            // Verify if index is push
+            if (order[i].id == props.id) {
+                found = true;
+                index = i;
+                break;
+            }
+
+        }
+
+        if (found) {
+
+            // Update quantity
+            order[index].quantity = orders;
+
+        }
+
     };
 
     return (
-        <div>
+
+        <div className="ctnr-datas">
             <li key={props.id}>
                 Nom: {props.name}
             </li>
             <li >
                 Compositions: {props.compositions}
             </li>
-            <li  >
+            <li>
                 Prix: {props.price}
             </li>
             <input
@@ -66,12 +86,13 @@ export default function Orders(props) {
             </input>
             <input
                 type="button"
-                value="diminuer"
+                value="Diminuer"
                 onClick={removeQuantity}
-                style={{ marginBottom: '30px' }}>
+            >
             </input>
-            Quantité totale{orders}
+            <p>Vous souhaitez {orders} {props.name}</p>
 
         </div>
+
     )
 }
