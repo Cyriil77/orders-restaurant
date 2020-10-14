@@ -7,6 +7,7 @@ import Signup from './Components/Signup/Signup';
 import ErrorPage from './Components/ErrorPage/ErrorPage';
 import Admin from './Components/Admin/Admin';
 import Payment from './Components/Payment/Payment';
+import summaryOrders from './Components/SummaryOrders/SummaryOrders';
 
 
 export default function App() {
@@ -23,6 +24,8 @@ export default function App() {
           <Route path="/signup" component={Signup} />
           <Route path="/admin" component={Admin}/>
           <Route path="/payment" component={Payment}/>
+          <Route path="/summaryOrders" component={summaryOrders}/>
+
           <Route component={ErrorPage} />
         </Switch>
 

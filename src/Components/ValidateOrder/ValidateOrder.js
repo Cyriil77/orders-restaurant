@@ -4,8 +4,7 @@ import './style.css';
 import { Link } from 'react-router-dom'
 
 import FirebaseContext from '../Firebase/Context';
-import Payment from '../Payment/Payment';
-
+import './style.css'
 
 export default function ValidateOrder(props) {
 
@@ -14,7 +13,7 @@ export default function ValidateOrder(props) {
     const firebase = useContext(FirebaseContext);
 
     const [userSession, setUserSession] = useState(null);
-    const [array, setArray] = useState([])
+
 
 
     // Verify Session
@@ -33,14 +32,8 @@ export default function ValidateOrder(props) {
 
     const handleClick = (e) => {
         e.preventDefault()
-        setArray(contextOrder)
 
-        let obj;
-
-        for (let i = 0; i < array.length; i++) {
-            obj = array
-            firebase.addOrder(userSession.uid, userSession.email, obj)
-        }
+        firebase.addOrder(userSession.uid, userSession.email, contextOrder);
 
     }
 
@@ -49,20 +42,9 @@ export default function ValidateOrder(props) {
 
 
     return (
-        <div className="">
+        <div className="validate-order">
 
-            <Link to="payment"> Validé</Link>
-
-            <form onSubmit={handleClick}>
-            <input type="submit"></input>
-            </form>
-            
-
-            {/* {array.map((datas, key) => (
-                <ul key={datas.id}>
-                    <li>{datas.name}</li>
-                </ul>
-            ))} */}
+            <input type="button" value="Validé" onClick={handleClick}/>
 
         </div>
     )

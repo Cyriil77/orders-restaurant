@@ -51,7 +51,6 @@ export default class Firebase {
 
     // Get datas
     displayOrder = () => this.orderDb;
-    displayOrderr = () => this.userDb;
 
     addOrder = (uid, mail, obj) => this.userDb.doc(uid).set({
         uid: uid,

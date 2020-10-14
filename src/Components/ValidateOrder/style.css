@@ -1,0 +1,10 @@
+.validate-order input{
+    text-decoration: none;
+    color: white;
+    background-color: #665df5;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-left: 15px;
+    border: none;
+    cursor: pointer;
+}
