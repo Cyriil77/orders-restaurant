@@ -5,6 +5,8 @@ import Footer from '../Footer/Footer';
 
 import FirebaseContext from '../Firebase/Context';
 
+import './style.css'
+
 export default function SummaryOrders(props) {
 
     const firebase = useContext(FirebaseContext);
@@ -20,6 +22,7 @@ export default function SummaryOrders(props) {
 
             firebase.getUserOrder().where('uid', '==', user.uid).get().then(function (querySnapshot) {
                 querySnapshot.forEach(doc => {
+
 
                     // Get all orders
                     const order = doc.data().futurOrder
@@ -73,6 +76,7 @@ export default function SummaryOrders(props) {
                                     // Get date of all datas
                                     let date = new Date(elem.date.seconds * 1000)
 
+                                    
                                     return elem.obj.map((el, key) => {
 
                                         const price = el.quantity * el.price

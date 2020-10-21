@@ -73,20 +73,21 @@ export default function Orders(props) {
 
     return (
 
-        <div className="ctnr-datas">
+        <section className="ctnr-datas">
 
-            <li key={props.id}>
-                Nom: {props.name}
-            </li>
+            <div className="datas">
+                <li key={props.id}>
+                    Nom: {props.name}
+                </li>
 
-            <li>
-                Compositions: {props.compositions}
-            </li>
+                <li>
+                    Compositions: {props.compositions}
+                </li>
 
-            <li>
-                Prix: {props.price}
-            </li>
-
+                <li>
+                    Prix: {props.price}€
+                </li>
+            </div>
             <input
                 type="button"
                 value="Ajouter"
@@ -101,7 +102,7 @@ export default function Orders(props) {
 
             <p>Vous souhaitez {orders} {props.name}</p>
 
-        </div>
+        </section>
 
     )
 

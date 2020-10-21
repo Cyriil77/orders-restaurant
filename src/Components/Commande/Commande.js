@@ -38,7 +38,7 @@ export default function Payment(props) {
             }).then(() => {
                 setDatas(result);
             })
-            
+
         })
 
 
@@ -48,7 +48,7 @@ export default function Payment(props) {
     const userPayment = () => {
 
         firebase.getUserOrder().doc(userSession.uid).update({
-            isPay : true
+            isPay: true
         })
 
     };
@@ -58,31 +58,36 @@ export default function Payment(props) {
 
         <div>
             <p>Chargement</p>
-            </div>
-        ) : (
-        <div>
-
-            <Header email={userSession.email} />
-
-            <h1>Commande</h1>
-
-            {datas === null ? <div>Chargement ...</div> :
-
-                <>
-                {/* Display datas about last order */}
-                    {datas.obj.map((elem, key) => {
-                        return <div key={key}> Vous avez commandé: {elem.quantity} {elem.name} </div>
-                    })}
-
-                    <button onClick={userPayment}>Valider le payement</button>
-
-                    <Link to="welcome">Revenir à mes choix</Link>
-                </>
-
-            }
-
-            <Footer />
-
         </div>
-    )
+    ) : (
+            <>
+                <Header email={userSession.email} />
+
+                <h1 className="title-commande">Commande</h1>
+
+                {datas === null ? <div>Chargement ...</div> :
+
+                    <section className="container-commande">
+                        {/* Display datas about last order */}
+                        <div>
+                            <p>Vous avez commandé:</p>
+                            <ul>
+                            {datas.obj.map((elem, key) => {
+                                return <li> {elem.quantity} {elem.name} </li>
+                            })}
+                            </ul>
+                        </div>
+
+                        <div className="btn-validate-come-back">
+                            <button className="btn-payment" onClick={userPayment}>Procéder au payement</button>
+
+                            <Link className="btn-payment" to="welcome">Revenir à mes choix</Link>
+                        </div>
+                    </section>
+
+                }
+
+                <Footer />
+            </>
+        )
 }

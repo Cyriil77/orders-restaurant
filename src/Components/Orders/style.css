@@ -1,18 +1,30 @@
 .container-orders{
     display: flex;
+    width: 90%;
+    margin: 0 auto;
 }
 
 .container-orders{
     display: flex;
+    flex-wrap: wrap;
+}
+
+.datas{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .ctnr-datas{
-    border-right: 1px solid black;
-    margin: 15px 15px;
+
+    margin: 15px 0;
     display: flex;
     flex-direction: column;
-    width: 20%;
+    width: 30%;
+    height: 40vh;
 }
+
 
 .ctnr-datas input{
     width: 50%;
@@ -24,7 +36,8 @@
     cursor: pointer;
 }
 
-li{
+.datas li{
     list-style-type: none;
+    margin-bottom: 15px;
     
 }

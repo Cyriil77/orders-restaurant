@@ -1,10 +1,20 @@
+hr{
+    margin-left: 5%;
+    width: 60%;
+    background-color: black;
+}
+
+.validate-order{
+    margin-top: 40px;
+}
+
 .validate-order a{
     text-decoration: none;
     color: white;
     background-color: #665df5;
     padding: 8px 12px;
     border-radius: 4px;
-    margin-left: 15px;
+    margin-left: 5%;
     border: none;
     cursor: pointer;
 }

@@ -32,13 +32,13 @@ export default function ValidateOrder(props) {
 
             })
 
-            .then(() => {
+                .then(() => {
 
-                result.forEach(element => {
-                    setDatas(element);
-                });
+                    result.forEach(element => {
+                        setDatas(element);
+                    });
 
-            })
+                })
 
         })
 
@@ -63,11 +63,13 @@ export default function ValidateOrder(props) {
     }
 
     return (
+        <>
+            <hr />
+            <div className="validate-order">
 
-        <div className="validate-order">
+                <Link to="commande" onClick={handleClick}>Valider votre commande</Link>
 
-            <Link to="commande" onClick={handleClick}>Validé</Link>
-
-        </div>
+            </div>
+        </>
     )
 }

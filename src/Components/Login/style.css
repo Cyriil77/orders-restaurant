@@ -58,6 +58,7 @@ body{
     border: none;
     cursor: pointer;
     background-color: #665df5;
+    color: white;
 }
 
 .ctnr-input a{
