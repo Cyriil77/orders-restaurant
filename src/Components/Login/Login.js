@@ -1,7 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom'
+
 import FirebaseContext from '../Firebase/Context';
+
 import './style.css';
+
 import background from '../../image/Account.png';
 
 export default function Login(props) {
@@ -35,14 +38,14 @@ export default function Login(props) {
         // Send data to firebase
         firebase.loginUser(mail, password)
             .then(() => {
+
                 // Redirection in Welcome componenent
                 props.history.push('./welcome');
 
                 // Reset datas
                 setLoginDatas({ ...datas });
 
-            })
-            .catch((err) => {
+            }).catch((err) => {
                 setError(err);
             })
     };
@@ -85,6 +88,7 @@ export default function Login(props) {
 
                             <Link to='signup'> Mot de passe oublié ?</Link>
                         </div>
+
                         <Link className="not-signup" to='signup'> Pas encore inscrit ? <span>S'inscrire</span>  </Link>
                     </div>
                 </div>
@@ -95,6 +99,7 @@ export default function Login(props) {
             <div className="ctnr-img">
                 <img src={background}></img>
             </div>
+
         </div>
     )
 }

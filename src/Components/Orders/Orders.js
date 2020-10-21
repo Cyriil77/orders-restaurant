@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+
 import orderContext from '../ContextOrder/ContextOrder';
 
 import './style.css';
@@ -8,7 +9,10 @@ import './style.css';
 
 export default function Orders(props) {
 
+    //  Display quantity
     const [orders, setOrders] = useState(0);
+
+    // Context for send datas
     const order = useContext(orderContext);
 
 
@@ -16,6 +20,7 @@ export default function Orders(props) {
     let index = 0;
 
     const addQuantity = () => {
+
         setOrders(orders + 1);
 
         for (let i = 0; i < order.length; i++) {
@@ -30,7 +35,6 @@ export default function Orders(props) {
         }
 
         if (found) {
-
             // Update quantity
             order[index].quantity = orders;
 
@@ -42,29 +46,27 @@ export default function Orders(props) {
                 id: props.id,
                 price: props.price
             });
+
         }
 
     }
 
     const removeQuantity = () => {
+
         orders === 0 ? setOrders(0) : setOrders(orders - 1);
 
         for (let i = 0; i < order.length; i++) {
-
             // Verify if index is push
             if (order[i].id === props.id) {
                 found = true;
                 index = i;
                 break;
             }
-
         }
 
         if (found) {
-
             // Update quantity
             order[index].quantity = orders;
-
         }
 
     };
@@ -72,29 +74,35 @@ export default function Orders(props) {
     return (
 
         <div className="ctnr-datas">
+
             <li key={props.id}>
                 Nom: {props.name}
             </li>
-            <li >
+
+            <li>
                 Compositions: {props.compositions}
             </li>
+
             <li>
                 Prix: {props.price}
             </li>
+
             <input
                 type="button"
                 value="Ajouter"
                 onClick={addQuantity}>
             </input>
+
             <input
                 type="button"
                 value="Diminuer"
-                onClick={removeQuantity}
-            >
+                onClick={removeQuantity}>
             </input>
+
             <p>Vous souhaitez {orders} {props.name}</p>
 
         </div>
 
     )
+
 }

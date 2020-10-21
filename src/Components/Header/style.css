@@ -33,11 +33,9 @@ header a{
     color: white;
     text-decoration: none;
     padding: 4px;
+    margin: 0 10px;
 }
 
-header a:nth-child(2){
-    margin: 0 15px;
-}
 
 header a:hover{
     border-bottom: 1px solid white;

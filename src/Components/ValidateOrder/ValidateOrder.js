@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react'
-import orderContext from '../ContextOrder/ContextOrder';
-import './style.css';
 import { Link } from 'react-router-dom'
 
+import orderContext from '../ContextOrder/ContextOrder';
 import FirebaseContext from '../Firebase/Context';
+
 import './style.css'
 
 export default function ValidateOrder(props) {
@@ -16,33 +16,30 @@ export default function ValidateOrder(props) {
     const [datas, setDatas] = useState(null)
 
 
-    // // Verify Session
-    // useEffect(() => {
-
-    //     let listener = firebase.auth.onAuthStateChanged(user => {
-    //         user ? setUserSession(user) : props.history.push('/');
-    //     })
-
-    //     return () => {
-    //         listener();
-    //     }
-    // }, [userSession]);
-
     useEffect(() => {
 
-        let result = []
+        let result = [];
+
         firebase.auth.onAuthStateChanged(user => {
-            user ? setUserSession(user) : props.history.push('/')
+            user ? setUserSession(user) : props.history.push('/');
 
             firebase.getUserOrder().where('uid', '==', user.uid).get().then(function (querySnapshot) {
+
                 querySnapshot.forEach(doc => {
-                    result.push(doc.data().futurOrder[0].obj)
+                    // If 0 order is push set datas = null
+                    result.push(doc.data().futurOrder[0].obj);
                 })
-            }).then(() => {
-                result.forEach(element => {
-                    setDatas(element)
-                });
+
             })
+
+            .then(() => {
+
+                result.forEach(element => {
+                    setDatas(element);
+                });
+
+            })
+
         })
 
 
@@ -51,22 +48,25 @@ export default function ValidateOrder(props) {
 
 
     const handleClick = () => {
+
+        // Verify is datas exist else push in firebase
         datas === null ? firebase.addOrder(userSession.uid, userSession.email, contextOrder) : firebase.getUserOrder().doc(userSession.uid).update({
-            futurOrder: firebase.test1().arrayUnion({
+
+            futurOrder: firebase.addInArray().arrayUnion({
+                isPay: false,
                 date: new Date(),
                 obj: contextOrder
             })
+
         })
-        
+
     }
 
-
-
     return (
+
         <div className="validate-order">
 
             <Link to="commande" onClick={handleClick}>Validé</Link>
-
 
         </div>
     )

@@ -1,12 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom'
+
 import FirebaseContext from "../Firebase/Context";
+
 import './style.css';
+
 import background from '../../image/Account.png';
 
 
 export default function Signup(props) {
-
 
     // Get functions with context
     const firebase = useContext(FirebaseContext);
@@ -58,8 +60,6 @@ export default function Signup(props) {
     return (
         <div className="container">
 
-
-
             {error}
             <form className="form" onSubmit={handleSubmit}>
 
@@ -89,8 +89,11 @@ export default function Signup(props) {
                             </input>
 
                             <Link to='signup'> Mot de passe oublié ?</Link>
+
                         </div>
+
                         <Link className="not-signup" to='login'> Déjà insrit ? <span>Se connecter</span>  </Link>
+
                     </div>
                 </div>
 

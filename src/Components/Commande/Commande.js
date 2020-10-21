@@ -1,7 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import './style.css'
 
 // Firebase context (methods)
 import FirebaseContext from '../Firebase/Context';
@@ -20,48 +22,67 @@ export default function Payment(props) {
     useEffect(() => {
 
         let result;
+
         firebase.auth.onAuthStateChanged(user => {
-            user ? setUserSession(user) : props.history.push('/')
+            user ? setUserSession(user) : props.history.push('/');
 
             firebase.getUserOrder().where('uid', '==', user.uid).get().then(function (querySnapshot) {
                 querySnapshot.forEach(doc => {
-                    console.log()
-                    const lastOrder = doc.data().futurOrder[doc.data().futurOrder.length - 1]
-                    result = lastOrder
+
+                    // Get last order for display it before the payment
+                    const lastOrder = doc.data().futurOrder[doc.data().futurOrder.length - 1];
+                    result = lastOrder;
+
                 })
+
             }).then(() => {
-                setDatas(result)
+                setDatas(result);
             })
+            
         })
 
 
     }, [userSession]);
 
 
+    const userPayment = () => {
+
+        firebase.getUserOrder().doc(userSession.uid).update({
+            isPay : true
+        })
+
+    };
+
 
     return userSession === null ? (
-        <div><p>Chargement</p></div>
+
+        <div>
+            <p>Chargement</p>
+            </div>
         ) : (
         <div>
+
             <Header email={userSession.email} />
+
             <h1>Commande</h1>
 
-            {datas === null ?
-                <div>Chargement ...</div>
-                :
+            {datas === null ? <div>Chargement ...</div> :
+
                 <>
+                {/* Display datas about last order */}
                     {datas.obj.map((elem, key) => {
-                        return <div key={key}>
-                            Vous avez commandé: {elem.quantity} {elem.name}
-                        </div>
+                        return <div key={key}> Vous avez commandé: {elem.quantity} {elem.name} </div>
                     })}
 
-                    <button>Procéder au payement</button>
+                    <button onClick={userPayment}>Valider le payement</button>
+
                     <Link to="welcome">Revenir à mes choix</Link>
                 </>
+
             }
 
             <Footer />
+
         </div>
     )
 }

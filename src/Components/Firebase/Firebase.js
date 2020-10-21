@@ -40,14 +40,14 @@ export default class Firebase {
     loginUser = (email, password) => this.auth.signInWithEmailAndPassword(email, password);
 
     // Disconnected
-    signoutUser = () => { this.auth.signOut() };
+    signoutUser = () => {this.auth.signOut()};
 
     // Send orders in database for admin
     setMenu = (name, price, compositions, id) => this.orderDb.doc().set({
         nom: name,
         prix: price,
         compo: compositions,
-        id: id
+        id: id,
     });
 
     // Get datas
@@ -55,13 +55,14 @@ export default class Firebase {
 
     getUserOrder = () => this.userDb
 
-    test1 = () => this.addDatasInArray
+    addInArray = () => this.addDatasInArray
 
     addOrder = (uid, mail, obj) => this.userDb.doc(uid).set({
         uid: uid,
         email: mail,
         futurOrder: [
             {
+                isPay: false,
                 date: new Date(),
                 obj
             }
