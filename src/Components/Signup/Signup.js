@@ -46,6 +46,7 @@ export default function Signup(props) {
 
                 // Add user on database
                 firebase.setUserId(result.user.uid, result.user.email, result.user.uid)
+                props.history.push('/login')
             })
             .catch((err) => {
                 setErr(err);
@@ -104,7 +105,7 @@ export default function Signup(props) {
 
 
             <div className="ctnr-img">
-                <img src={background}></img>
+                <img src={background} alt="fond"></img>
             </div>
         </div>
     )

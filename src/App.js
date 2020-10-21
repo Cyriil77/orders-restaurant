@@ -6,7 +6,7 @@ import Login from './Components/Login/Login';
 import Signup from './Components/Signup/Signup';
 import ErrorPage from './Components/ErrorPage/ErrorPage';
 import Admin from './Components/Admin/Admin';
-import Payment from './Components/Payment/Payment';
+import Commande from './Components/Commande/Commande';
 import summaryOrders from './Components/SummaryOrders/SummaryOrders';
 
 
@@ -23,7 +23,7 @@ export default function App() {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route path="/admin" component={Admin}/>
-          <Route path="/payment" component={Payment}/>
+          <Route path="/commande" component={Commande}/>
           <Route path="/summaryOrders" component={summaryOrders}/>
 
           <Route component={ErrorPage} />

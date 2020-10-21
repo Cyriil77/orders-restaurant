@@ -4,7 +4,7 @@ import Orders from '../Orders/Orders';
 import ValidateOrder from '../ValidateOrder/ValidateOrder';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-
+import './style.css'
 
 // Firebase context (methods)
 import FirebaseContext from '../Firebase/Context';
@@ -44,7 +44,7 @@ export default function Welcome(props) {
 
 
     return userSession === null ? (
-        <div><p>Loading</p></div>
+        <div><p>Chargement</p></div>
     ) : (
             <div>
                 <Header email={userSession.email} />

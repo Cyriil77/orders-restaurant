@@ -13,38 +13,60 @@ export default function ValidateOrder(props) {
     const firebase = useContext(FirebaseContext);
 
     const [userSession, setUserSession] = useState(null);
+    const [datas, setDatas] = useState(null)
 
 
+    // // Verify Session
+    // useEffect(() => {
 
-    // Verify Session
+    //     let listener = firebase.auth.onAuthStateChanged(user => {
+    //         user ? setUserSession(user) : props.history.push('/');
+    //     })
+
+    //     return () => {
+    //         listener();
+    //     }
+    // }, [userSession]);
+
     useEffect(() => {
 
-        let listener = firebase.auth.onAuthStateChanged(user => {
-            user ? setUserSession(user) : props.history.push('/');
+        let result = []
+        firebase.auth.onAuthStateChanged(user => {
+            user ? setUserSession(user) : props.history.push('/')
+
+            firebase.getUserOrder().where('uid', '==', user.uid).get().then(function (querySnapshot) {
+                querySnapshot.forEach(doc => {
+                    result.push(doc.data().futurOrder[0].obj)
+                })
+            }).then(() => {
+                result.forEach(element => {
+                    setDatas(element)
+                });
+            })
         })
 
-        return () => {
-            listener();
-        }
+
     }, [userSession]);
 
 
 
-    const handleClick = (e) => {
-        e.preventDefault()
-
-        firebase.addOrder(userSession.uid, userSession.email, contextOrder);
-
+    const handleClick = () => {
+        datas === null ? firebase.addOrder(userSession.uid, userSession.email, contextOrder) : firebase.getUserOrder().doc(userSession.uid).update({
+            futurOrder: firebase.test1().arrayUnion({
+                date: new Date(),
+                obj: contextOrder
+            })
+        })
+        
     }
-
-
 
 
 
     return (
         <div className="validate-order">
 
-            <input type="button" value="Validé" onClick={handleClick}/>
+            <Link to="commande" onClick={handleClick}>Validé</Link>
+
 
         </div>
     )

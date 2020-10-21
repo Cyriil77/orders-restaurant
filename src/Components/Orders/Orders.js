@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
+import orderContext from '../ContextOrder/ContextOrder';
 
 import './style.css';
 
-import orderContext from '../ContextOrder/ContextOrder';
+
 
 
 export default function Orders(props) {
@@ -20,7 +21,7 @@ export default function Orders(props) {
         for (let i = 0; i < order.length; i++) {
 
             // Verify if index is push
-            if (order[i].id == props.id) {
+            if (order[i].id === props.id) {
                 found = true;
                 index = i;
                 break;
@@ -38,7 +39,8 @@ export default function Orders(props) {
             order.push({
                 quantity: orders,
                 name: props.name,
-                id: props.id
+                id: props.id,
+                price: props.price
             });
         }
 
@@ -50,7 +52,7 @@ export default function Orders(props) {
         for (let i = 0; i < order.length; i++) {
 
             // Verify if index is push
-            if (order[i].id == props.id) {
+            if (order[i].id === props.id) {
                 found = true;
                 index = i;
                 break;

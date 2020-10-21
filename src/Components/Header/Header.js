@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import FirebaseContext from '../Firebase/Context';
 import './style.css'
@@ -31,7 +31,7 @@ export default function Header(props) {
                     <ul>
                         <li>
                             <Link to="welcome">Acceuil</Link>
-                            <Link to="payment">Commande</Link>
+                            <Link to="commande">Commande</Link>
                             <Link to="summaryOrders">Récapitulatif</Link>
                         </li>
                     </ul>
@@ -49,7 +49,7 @@ export default function Header(props) {
                     <nav>
                         <ul>
                             <li>
-                                <Link to="">Acceuil</Link>
+                                <Link to="welcome">Acceuil</Link>
                                 <Link to="admin">Admin</Link>
                             </li>
                         </ul>

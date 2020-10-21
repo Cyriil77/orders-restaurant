@@ -11,7 +11,7 @@ export default function Landing() {
             <h1 className="title">Passez une commande</h1>
 
             <div className="ctnr-img-redirection">
-                <img className="background" src={background}></img>
+                <img className="background" src={background} alt="fond"></img>
 
                 <div className="redirection">
                     <Link to="signup">Inscription</Link>
