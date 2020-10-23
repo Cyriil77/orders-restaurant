@@ -1,9 +1,6 @@
-body{
-    margin: 0;
-}
-
 .title{
-    background-color: lightcyan;
+    background-color: #665df5;
+    color: white;
     text-align: center;
     margin: 0;
     padding: 15px 0;
@@ -14,7 +11,8 @@ body{
 }
 
 .background{
-    width: 100%;
+    width: 90%;
+    margin-left: 5%;
 }
 
 .redirection{
@@ -32,7 +30,7 @@ body{
     color: white;
     text-transform: uppercase;
     padding: 8px;
-    background-color: black;
+    background-color: #665df5;
     border-radius: 8px;
     font-size: 18px;
 }

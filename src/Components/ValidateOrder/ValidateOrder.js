@@ -16,9 +16,11 @@ export default function ValidateOrder(props) {
     const [datas, setDatas] = useState(null)
 
 
+
     useEffect(() => {
 
         let result = [];
+
 
         firebase.auth.onAuthStateChanged(user => {
             user ? setUserSession(user) : props.history.push('/');
@@ -26,6 +28,8 @@ export default function ValidateOrder(props) {
             firebase.getUserOrder().where('uid', '==', user.uid).get().then(function (querySnapshot) {
 
                 querySnapshot.forEach(doc => {
+                    console.log(doc.data())
+
                     // If 0 order is push set datas = null
                     result.push(doc.data().futurOrder[0].obj);
                 })
@@ -41,7 +45,6 @@ export default function ValidateOrder(props) {
                 })
 
         })
-
 
     }, [userSession]);
 
@@ -64,10 +67,11 @@ export default function ValidateOrder(props) {
 
     return (
         <>
-            <hr />
-            <div className="validate-order">
 
+            <div className="validate-order">
+            <hr className="line-validate"/>
                 <Link to="commande" onClick={handleClick}>Valider votre commande</Link>
+
 
             </div>
         </>

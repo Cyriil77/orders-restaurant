@@ -44,7 +44,7 @@ export default function Orders(props) {
                 quantity: orders,
                 name: props.name,
                 id: props.id,
-                price: props.price
+                price: props.price,
             });
 
         }
@@ -73,7 +73,7 @@ export default function Orders(props) {
 
     return (
 
-        <section className="ctnr-datas">
+        <div className="ctnr-datas">
 
             <div className="datas">
                 <li key={props.id}>
@@ -102,7 +102,7 @@ export default function Orders(props) {
 
             <p>Vous souhaitez {orders} {props.name}</p>
 
-        </section>
+        </div>
 
     )
 

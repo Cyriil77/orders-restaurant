@@ -30,7 +30,7 @@ export default function Welcome(props) {
     useEffect(() => {
 
         let listener = firebase.auth.onAuthStateChanged(user => {
-            user ? setUserSession(user) : props.history.push('/');
+            user ? setUserSession(user.email) : props.history.push('/');
         })
 
         firebase.displayOrder().get().then(querySnapshot => {
@@ -62,20 +62,23 @@ export default function Welcome(props) {
 
                 <Header email={userSession.email} />
 
-                <ContextOrder.Provider value={[]}>
+                <h1 className="title-page">Choix de vos commandes</h1>
+                <hr/>
 
-                    <div className="container-orders">
+                <section className="container-orders">
+
+                    <ContextOrder.Provider value={[]}>
 
                         {/* send datas orders for the orders component */}
                         {order.map((datas, index, key) => (
                             <Orders key={datas.id} name={datas.nom} price={datas.prix} compositions={datas.compo} uid={userSession.uid} id={datas.id} />
                         ))}
 
-                    </div>
+                        <ValidateOrder />
 
-                    <ValidateOrder />
+                    </ContextOrder.Provider>
 
-                </ContextOrder.Provider>
+                </section>
 
                 <Footer />
 

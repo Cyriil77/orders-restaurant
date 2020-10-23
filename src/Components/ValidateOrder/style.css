@@ -5,7 +5,13 @@ hr{
 }
 
 .validate-order{
-    margin-top: 40px;
+    margin: 80px 0;
+    width: 100%;
+}
+
+.line-validate{
+    margin-left: 0;
+    margin-bottom: 40px;
 }
 
 .validate-order a{
@@ -14,11 +20,6 @@ hr{
     background-color: #665df5;
     padding: 8px 12px;
     border-radius: 4px;
-    margin-left: 5%;
     border: none;
     cursor: pointer;
-}
-
-.footer{
-    margin-top: 253px;
 }

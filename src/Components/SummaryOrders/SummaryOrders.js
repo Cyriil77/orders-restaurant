@@ -16,7 +16,7 @@ export default function SummaryOrders(props) {
 
     useEffect(() => {
 
-        let result = []
+        let result = [];
         firebase.auth.onAuthStateChanged(user => {
             user ? setUserSession(user) : props.history.push('/')
 
@@ -25,8 +25,8 @@ export default function SummaryOrders(props) {
 
 
                     // Get all orders
-                    const order = doc.data().futurOrder
-                    result.push(order)
+                    const order = doc.data().futurOrder;
+                    result.push(order);
                 })
 
             }).then(() => {
@@ -51,7 +51,8 @@ export default function SummaryOrders(props) {
 
                 <Header email={userSession.email} />
 
-                <h2>Récapitulatif</h2>
+                <h1 className="title-page">Récapitulatif</h1>
+                <hr/>
 
                 {datas === null ? <div>Chargement ...</div> :
 
@@ -64,8 +65,8 @@ export default function SummaryOrders(props) {
                                     <th>Date</th>
                                     <th>Nom</th>
                                     <th>Quantité</th>
-                                    <th>Prix</th>
-                                    <th>Prix à l'unité</th>
+                                    <th>Prix €</th>
+                                    <th>Prix à l'unité €</th>
                                 </tr>
                             </thead>
 
@@ -75,15 +76,16 @@ export default function SummaryOrders(props) {
 
                                     // Get date of all datas
                                     let date = new Date(elem.date.seconds * 1000)
-
                                     
+
                                     return elem.obj.map((el, key) => {
 
-                                        const price = el.quantity * el.price
+                                        const price = el.quantity * el.price;
+
 
                                         return <tr className="test" key={key}>
 
-                                            <td>{date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()} à {date.getHours()}:{date.getMinutes()}:{date.getSeconds()}</td>
+                                            <td>{date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()} à <strong>{date.getHours()}</strong>:<strong>{date.getMinutes()}</strong>:<strong>{date.getSeconds()}</strong></td>
                                             <td>{el.name}</td>
                                             <td>{el.quantity}</td>
                                             <td>{price}</td>

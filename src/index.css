@@ -33,11 +33,15 @@ h1, h2, thead tr th{
   font-weight: bold;
 }
 
-a, input[type], li, p, th, td{
+a, input[type], li, p, th, td, label{
   font-family: 'Montserrat';
   font-weight: normal;
 }
 
 input[type], button, a{
   font-size: 16px;
+}
+
+.title-page{
+  margin-left: 5%;
 }

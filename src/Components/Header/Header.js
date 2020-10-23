@@ -32,7 +32,7 @@ export default function Header(props) {
                         <li>
                             <Link to="welcome">Accueil</Link>
                             <Link to="commande">Commande</Link>
-                            <Link to="summaryOrders">Récapitulatif</Link>
+                            <Link to="summaryOrders">Récapitulatifs</Link>
                         </li>
                     </ul>
                 </nav>

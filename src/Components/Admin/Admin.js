@@ -3,9 +3,13 @@ import FirebaseContext from '../Firebase/Context';
 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import './style.css'
 
 
 export default function Admin(props) {
+
+    // Get context
+    const firebase = useContext(FirebaseContext);
 
     // Value input
     const datas = {
@@ -14,16 +18,15 @@ export default function Admin(props) {
         compositions: ''
     };
 
-    // Get context
-    const firebase = useContext(FirebaseContext);
-
     // State
     const [orders, setOrders] = useState(datas);
 
-    const [userSession, setUserSession] = useState(null);
-
     // Destructuring
     const { name, price, compositions } = orders;
+
+    const [userSession, setUserSession] = useState(null);
+    const input = document.querySelector('.send-datas')
+
 
 
 
@@ -34,12 +37,14 @@ export default function Admin(props) {
 
         firebase.displayOrder().orderBy('id', 'desc').limit(1).get().then(querySnapshot => {
             querySnapshot.forEach((doc) =>
-                datas = doc.data().id)
-
-            console.log(datas)
+                datas = doc.data().id
+            )
 
             // Add orders in firebase
-            firebase.setMenu(name, price, compositions, datas + 1)
+            if({...datas} == ""){
+                console.log('vide')
+            }
+            // firebase.setMenu(name, price, compositions, datas + 1)
 
 
         }).catch(error => console.log(error));
@@ -51,6 +56,10 @@ export default function Admin(props) {
     // Change state
     const handleChange = (e) => {
         setOrders({ ...orders, [e.target.id]: e.target.value });
+        if (name !== '' && price !== '' && compositions !== '') {
+            input.removeAttribute('disabled');
+            input.style.color = '#665df5';
+        }
     };
 
     // Verify Session
@@ -67,43 +76,49 @@ export default function Admin(props) {
 
 
 
-    return (
+    return userSession === null ? (
+        <div>
+            <p>Chargement...</p>
+        </div>
+    ) : (
         <>
-            <Header />
+            <Header email={userSession.email}/>
             <div>
-                <p>Ajouter un plat</p>
-                <form onSubmit={handleSubmit}>
+                <h1 className="title-page">Ajouter un plat</h1>
+                <hr />
 
-                    <label>Nom du plat</label>
-                    <input type="text"
-                        placeholder="pate boulo"
-                        id="name"
-                        value={name}
-                        onChange={handleChange}>
-                    </input>
+                <form className="form-admin" onSubmit={handleSubmit}>
 
-                    <label>Prix</label>
-                    <input type="number"
-                        placeholder="10"
-                        id="price"
-                        value={price}
-                        onChange={handleChange}>
-                    </input>
+                    <div>
+                        <label>Nom du plat:</label>
+                        <input type="text"
+                            placeholder="pate boulo"
+                            id="name"
+                            value={name}
+                            onChange={handleChange}>
+                        </input>
 
-                    <label>Composition</label>
-                    <input type="text"
-                        placeholder="pate, bolognaise, oignons"
-                        id="compositions"
-                        value={compositions}
-                        onChange={handleChange}>
-                    </input>
+                        <label>Prix:</label>
+                        <input type="number"
+                            placeholder="10"
+                            id="price"
+                            value={price}
+                            onChange={handleChange}
+                            min="0">
+                        </input>
 
-                    <input type="submit"></input>
+                        <label>Compositions:</label>
+                        <input type="text"
+                            placeholder="pate, bolognaise, oignons"
+                            id="compositions"
+                            value={compositions}
+                            onChange={handleChange}>
+                        </input>
 
-                    <button
-                        onClick={firebase.signoutUser}>
-                        Se déconnecter
-                </button>
+                        <input disabled className="send-datas" type="submit"></input>
+
+                    </div>
+
                 </form>
             </div>
             <Footer />

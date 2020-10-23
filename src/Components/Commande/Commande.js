@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+
+import background from '../../image/Payment.png'
 import './style.css'
 
 // Firebase context (methods)
@@ -57,32 +59,39 @@ export default function Payment(props) {
     return userSession === null ? (
 
         <div>
-            <p>Chargement</p>
+            <p>Chargement ...</p>
         </div>
     ) : (
             <>
                 <Header email={userSession.email} />
 
-                <h1 className="title-commande">Commande</h1>
+                <h1 className="title-page">Commande</h1>
+
+                <hr/>
 
                 {datas === null ? <div>Chargement ...</div> :
 
                     <section className="container-commande">
-                        {/* Display datas about last order */}
-                        <div>
-                            <p>Vous avez commandé:</p>
-                            <ul>
-                            {datas.obj.map((elem, key) => {
-                                return <li> {elem.quantity} {elem.name} </li>
-                            })}
-                            </ul>
+                        <div className="container-datas-btn">
+                            <div>
+                                <p>Vérification de votre commande:</p>
+                                <ul>
+                                    {datas.obj.map((elem, key) => {
+                                        return <li> {elem.quantity} {elem.name} </li>
+                                    })}
+                                </ul>
+                            </div>
+
+                            <div className="btn-validate-come-back">
+                                <button className="btn-payment" onClick={userPayment}>Procéder au payement</button>
+
+                                <Link className="btn-payment" to="welcome">Revenir à mes choix</Link>
+                            </div>
+                        </div>
+                        <div className="img-commande">
+                            <img src={background}></img>
                         </div>
 
-                        <div className="btn-validate-come-back">
-                            <button className="btn-payment" onClick={userPayment}>Procéder au payement</button>
-
-                            <Link className="btn-payment" to="welcome">Revenir à mes choix</Link>
-                        </div>
                     </section>
 
                 }
