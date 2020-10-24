@@ -24,7 +24,7 @@ export default class Firebase {
         // Acess database
         this.userDb = app.firestore().collection('user');
         this.orderDb = app.firestore().collection('orders');
-        this.array = app.firestore.FieldValue
+        this.addDatasInArray = app.firestore.FieldValue
     }
 
     // Method I can call in all files and use it with the provider who is index.js at the root
@@ -55,9 +55,7 @@ export default class Firebase {
 
     getUserOrder = () => this.userDb
 
-    addInArray = () => this.array
-
-    removeInArray = () => this.array
+    addInArray = () => this.addDatasInArray
 
     addOrder = (uid, mail, obj) => this.userDb.doc(uid).set({
         uid: uid,

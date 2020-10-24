@@ -20,7 +20,6 @@ export default function Payment(props) {
     // Last order
     const [datas, setDatas] = useState(null);
 
-
     // Verify Session
     useEffect(() => {
 
@@ -29,15 +28,12 @@ export default function Payment(props) {
         firebase.auth.onAuthStateChanged(user => {
             user ? setUserSession(user) : props.history.push('/');
 
-            // Get actual user
             firebase.getUserOrder().where('uid', '==', user.uid).get().then(function (querySnapshot) {
                 querySnapshot.forEach(doc => {
 
-                    if (doc.data().futurOrder[doc.data().futurOrder.length - 1].isPay === false) {
-                        const lastOrder = doc.data().futurOrder[doc.data().futurOrder.length - 1];
-                        result = lastOrder;
-                    }
-
+                    // Get last order for display it before the payment
+                    const lastOrder = doc.data().futurOrder[doc.data().futurOrder.length - 1];
+                    result = lastOrder;
 
                 })
 
@@ -54,19 +50,8 @@ export default function Payment(props) {
     const userPayment = () => {
 
         firebase.getUserOrder().doc(userSession.uid).update({
-            futurOrder : firebase.removeInArray().delete()
+            isPay: true
         })
-
-        // firebase.getUserOrder().doc(userSession.uid).update({
-
-        //     futurOrder: firebase.addInArray().arrayUnion({
-        //         isPay: true,
-        //         date: datas.date,
-        //         obj: datas.obj
-        //     })
-        // })
-
-        console.log(datas)
 
     };
 
@@ -82,22 +67,20 @@ export default function Payment(props) {
 
                 <h1 className="title-page">Commande</h1>
 
-                <hr />
+                <hr/>
 
                 {datas === null ? <div>Chargement ...</div> :
 
                     <section className="container-commande">
                         <div className="container-datas-btn">
-                            {datas !== undefined ?
-                                <div>
-                                    <p>Vérification de votre commande:</p>
-                                    <ul>
-                                        {datas.obj.map((elem, key) => {
-                                            return <li> {elem.quantity} {elem.name} </li>
-                                        })}
-                                    </ul>
-                                </div>
-                            : <p>Vous n'avez aucune commande</p>}
+                            <div>
+                                <p>Vérification de votre commande:</p>
+                                <ul>
+                                    {datas.obj.map((elem, key) => {
+                                        return <li> {elem.quantity} {elem.name} </li>
+                                    })}
+                                </ul>
+                            </div>
 
                             <div className="btn-validate-come-back">
                                 <button className="btn-payment" onClick={userPayment}>Procéder au payement</button>

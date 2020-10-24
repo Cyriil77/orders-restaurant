@@ -44,7 +44,7 @@ export default function Admin(props) {
             if({...datas} == ""){
                 console.log('vide')
             }
-            firebase.setMenu(name, price, compositions, datas + 1)
+            // firebase.setMenu(name, price, compositions, datas + 1)
 
 
         }).catch(error => console.log(error));

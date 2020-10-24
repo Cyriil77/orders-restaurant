@@ -8,52 +8,51 @@ import './style.css'
 
 export default function ValidateOrder(props) {
 
+    // Get context
     const contextOrder = useContext(orderContext);
     const firebase = useContext(FirebaseContext);
 
     const [userSession, setUserSession] = useState(null);
     const [datas, setDatas] = useState(null)
-    // const [number, setNumber] = useState(0)
+
 
 
     useEffect(() => {
+
         let result = [];
+
 
         firebase.auth.onAuthStateChanged(user => {
             user ? setUserSession(user) : props.history.push('/');
 
-
             firebase.getUserOrder().where('uid', '==', user.uid).get().then(function (querySnapshot) {
 
                 querySnapshot.forEach(doc => {
-                    console.log(doc.data().futurOrder)
+                    console.log(doc.data())
+
                     // If 0 order is push set datas = null
-                    if (doc.data().futurOrder == undefined) {
-                        return;
-                    } else {
-                        result.push(doc.data().futurOrder[0].obj);
-                    }
+                    result.push(doc.data().futurOrder[0].obj);
                 })
 
-            }).then(() => {
-                result.forEach(element => {
-                    setDatas(element);
-                });
-
             })
+
+                .then(() => {
+
+                    result.forEach(element => {
+                        setDatas(element);
+                    });
+
+                })
 
         })
 
     }, [userSession]);
 
-    // Effacer seulement le dernier dans commande.js
-    // passez datas à autre chose que null dans validateOrder.js
-
 
 
     const handleClick = () => {
 
-        // // Verify is datas exist else push in firebase
+        // Verify is datas exist else push in firebase
         datas === null ? firebase.addOrder(userSession.uid, userSession.email, contextOrder) : firebase.getUserOrder().doc(userSession.uid).update({
 
             futurOrder: firebase.addInArray().arrayUnion({
@@ -64,16 +63,13 @@ export default function ValidateOrder(props) {
 
         })
 
-
-
     }
 
     return (
         <>
 
             <div className="validate-order">
-                <hr className="line-validate" />
-                {/* <button onClick={handleClick}>test</button> */}
+            <hr className="line-validate"/>
                 <Link to="commande" onClick={handleClick}>Valider votre commande</Link>
 
 
