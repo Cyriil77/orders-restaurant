@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/build/static/css/main.b8c1891f.chunk.css",
+    "main.js": "/build/static/js/main.a2ad8ce7.chunk.js",
+    "main.js.map": "/build/static/js/main.a2ad8ce7.chunk.js.map",
+    "runtime-main.js": "/build/static/js/runtime-main.5b96c6fe.js",
+    "runtime-main.js.map": "/build/static/js/runtime-main.5b96c6fe.js.map",
+    "static/js/2.40802cee.chunk.js": "/build/static/js/2.40802cee.chunk.js",
+    "static/js/2.40802cee.chunk.js.map": "/build/static/js/2.40802cee.chunk.js.map",
+    "index.html": "/build/index.html",
+    "precache-manifest.c46ff6515487e21d9e603a8a23d1a4bc.js": "/build/precache-manifest.c46ff6515487e21d9e603a8a23d1a4bc.js",
+    "service-worker.js": "/build/service-worker.js",
+    "static/css/main.b8c1891f.chunk.css.map": "/build/static/css/main.b8c1891f.chunk.css.map",
+    "static/js/2.40802cee.chunk.js.LICENSE.txt": "/build/static/js/2.40802cee.chunk.js.LICENSE.txt",
+    "static/media/Account.png": "/build/static/media/Account.02b7d5d2.png",
+    "static/media/LoginSignup.png": "/build/static/media/LoginSignup.1b27b6cc.png",
+    "static/media/Payment.png": "/build/static/media/Payment.d5e2c438.png",
+    "static/media/index.css": "/build/static/media/subset-Montserrat-Regular.faa13ea7.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5b96c6fe.js",
+    "static/js/2.40802cee.chunk.js",
+    "static/css/main.b8c1891f.chunk.css",
+    "static/js/main.a2ad8ce7.chunk.js"
+  ]
+}
