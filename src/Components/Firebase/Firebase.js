@@ -59,14 +59,15 @@ export default class Firebase {
 
     removeInArray = () => this.array
 
-    addOrder = (uid, mail, obj) => this.userDb.doc(uid).set({
+    addOrder = (uid, mail, obj, id) => this.userDb.doc(uid).set({
         uid: uid,
         email: mail,
         futurOrder: [
             {
+                id: 0,
                 isPay: false,
                 date: new Date(),
-                obj
+                obj,
             }
         ]
     })

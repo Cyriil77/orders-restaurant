@@ -53,20 +53,37 @@ export default function Payment(props) {
 
     const userPayment = () => {
 
-        firebase.getUserOrder().doc(userSession.uid).update({
-            futurOrder : firebase.removeInArray().delete()
+        console.log(datas)
+
+        //deleteId is the id from the post you want to delete
+
+        firebase.getUserOrder().where('uid', '==', userSession.uid).get().then(function (querySnapshot) {
+            querySnapshot.forEach(doc => {
+
+                const futurOrder = doc.data().futurOrder;
+                const idToDelete = datas.id
+                console.log(idToDelete)
+
+                firebase.getUserOrder().doc(userSession.uid).update({
+                    futurOrder: futurOrder.filter(post => post.id !== idToDelete)
+                })
+                    .catch(function (error) {
+                        console.error("Error removing document: ", error);
+                    });
+
+            })
+
         })
 
-        // firebase.getUserOrder().doc(userSession.uid).update({
+        firebase.getUserOrder().doc(userSession.uid).update({
 
-        //     futurOrder: firebase.addInArray().arrayUnion({
-        //         isPay: true,
-        //         date: datas.date,
-        //         obj: datas.obj
-        //     })
-        // })
+            futurOrder: firebase.addInArray().arrayUnion({
+                isPay: true,
+                date: datas.date,
+                obj: datas.obj
+            })
+        })
 
-        console.log(datas)
 
     };
 
@@ -97,7 +114,7 @@ export default function Payment(props) {
                                         })}
                                     </ul>
                                 </div>
-                            : <p>Vous n'avez aucune commande</p>}
+                                : <p>Vous n'avez aucune commande</p>}
 
                             <div className="btn-validate-come-back">
                                 <button className="btn-payment" onClick={userPayment}>Procéder au payement</button>

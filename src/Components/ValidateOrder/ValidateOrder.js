@@ -26,7 +26,6 @@ export default function ValidateOrder(props) {
             firebase.getUserOrder().where('uid', '==', user.uid).get().then(function (querySnapshot) {
 
                 querySnapshot.forEach(doc => {
-                    console.log(doc.data().futurOrder)
                     // If 0 order is push set datas = null
                     if (doc.data().futurOrder == undefined) {
                         return;
@@ -52,16 +51,22 @@ export default function ValidateOrder(props) {
 
 
     const handleClick = () => {
+        let lastId;
+        firebase.getUserOrder().where('uid', '==', userSession.uid).get().then(querySnapshot => {
+            querySnapshot.forEach((doc) =>
+            lastId = doc.data().futurOrder[doc.data().futurOrder.length - 1].id
+            )
+        }).then(()=> {
+            datas === null ? firebase.addOrder(userSession.uid, userSession.email, contextOrder) : firebase.getUserOrder().doc(userSession.uid).update({
 
-        // // Verify is datas exist else push in firebase
-        datas === null ? firebase.addOrder(userSession.uid, userSession.email, contextOrder) : firebase.getUserOrder().doc(userSession.uid).update({
-
-            futurOrder: firebase.addInArray().arrayUnion({
-                isPay: false,
-                date: new Date(),
-                obj: contextOrder
+                futurOrder: firebase.addInArray().arrayUnion({
+                    id: lastId + 1,
+                    isPay: false,
+                    date: new Date(),
+                    obj: contextOrder
+                })
+    
             })
-
         })
 
 
@@ -73,7 +78,6 @@ export default function ValidateOrder(props) {
 
             <div className="validate-order">
                 <hr className="line-validate" />
-                {/* <button onClick={handleClick}>test</button> */}
                 <Link to="commande" onClick={handleClick}>Valider votre commande</Link>
 
 
