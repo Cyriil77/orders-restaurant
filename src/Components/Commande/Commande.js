@@ -33,7 +33,7 @@ export default function Payment(props) {
             firebase.getUserOrder().where('uid', '==', user.uid).get().then(function (querySnapshot) {
                 querySnapshot.forEach(doc => {
 
-                    if (doc.data().futurOrder[doc.data().futurOrder.length - 1].isPay === false) {
+                    if (doc.data().futurOrder[doc.data().futurOrder.length - 1]) {
                         const lastOrder = doc.data().futurOrder[doc.data().futurOrder.length - 1];
                         result = lastOrder;
                     }
@@ -53,8 +53,6 @@ export default function Payment(props) {
 
     const userPayment = () => {
 
-        console.log(datas)
-
         //deleteId is the id from the post you want to delete
 
         firebase.getUserOrder().where('uid', '==', userSession.uid).get().then(function (querySnapshot) {
@@ -62,10 +60,9 @@ export default function Payment(props) {
 
                 const futurOrder = doc.data().futurOrder;
                 const idToDelete = datas.id
-                console.log(idToDelete)
 
                 firebase.getUserOrder().doc(userSession.uid).update({
-                    futurOrder: futurOrder.filter(post => post.id !== idToDelete)
+                    futurOrder: futurOrder.filter(getId => getId.id !== idToDelete)
                 })
                     .catch(function (error) {
                         console.error("Error removing document: ", error);
@@ -73,16 +70,21 @@ export default function Payment(props) {
 
             })
 
-        })
+        }).then(() => {
 
-        firebase.getUserOrder().doc(userSession.uid).update({
+            firebase.getUserOrder().doc(userSession.uid).update({
 
-            futurOrder: firebase.addInArray().arrayUnion({
-                isPay: true,
-                date: datas.date,
-                obj: datas.obj
+                futurOrder: firebase.addInArray().arrayUnion({
+                    id: datas.id,
+                    isPay: true,
+                    date: datas.date,
+                    obj: datas.obj
+                })
             })
+        }).then(() => {
+            alert('Merci d\'avoir payez')
         })
+
 
 
     };
@@ -105,7 +107,8 @@ export default function Payment(props) {
 
                     <section className="container-commande">
                         <div className="container-datas-btn">
-                            {datas !== undefined ?
+                            {console.log(datas)}
+                            {datas !== undefined && datas.isPay !== true ?
                                 <div>
                                     <p>Vérification de votre commande:</p>
                                     <ul>

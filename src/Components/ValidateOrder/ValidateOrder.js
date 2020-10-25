@@ -54,9 +54,9 @@ export default function ValidateOrder(props) {
         let lastId;
         firebase.getUserOrder().where('uid', '==', userSession.uid).get().then(querySnapshot => {
             querySnapshot.forEach((doc) =>
-            lastId = doc.data().futurOrder[doc.data().futurOrder.length - 1].id
+                lastId = doc.data().futurOrder[doc.data().futurOrder.length - 1].id,
             )
-        }).then(()=> {
+        }).then(() => {
             datas === null ? firebase.addOrder(userSession.uid, userSession.email, contextOrder) : firebase.getUserOrder().doc(userSession.uid).update({
 
                 futurOrder: firebase.addInArray().arrayUnion({
@@ -68,6 +68,9 @@ export default function ValidateOrder(props) {
     
             })
         })
+
+
+
 
 
 
