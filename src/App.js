@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import SigninSignup from './Components/SigninSignup/SigninSignup';
 import Welcome from './Components/Welcome/Welcome';
 import Login from './Components/Login/Login';
@@ -26,7 +26,6 @@ export default function App() {
           <Route path="/admin" component={Admin}/>
           <Route path="/commande" component={Commande}/>
           <Route path="/summaryOrders" component={summaryOrders}/>
-
           <Route component={ErrorPage} />
         </Switch>
 

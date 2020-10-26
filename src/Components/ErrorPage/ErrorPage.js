@@ -3,7 +3,7 @@ import React from 'react'
 export default function ErrorPage() {
     return (
         <div>
-            ErrorPage
+            Sa me redirige vers mon erreur au lieux de la page d'accueil du site
         </div>
     )
 }
