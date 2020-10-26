@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+// import Payment from '../Payment/Payment';
 
 import background from '../../image/Payment.png'
 import './style.css'
@@ -53,6 +54,8 @@ export default function Payment(props) {
 
     const userPayment = () => {
 
+        // <Payment />
+
         //deleteId is the id from the post you want to delete
 
         firebase.getUserOrder().where('uid', '==', userSession.uid).get().then(function (querySnapshot) {
@@ -83,11 +86,30 @@ export default function Payment(props) {
             })
         }).then(() => {
             alert('Merci d\'avoir payez')
+        }).then(() => {
+            props.history.push('./summaryOrders')
         })
 
-
-
     };
+
+    const deleteLastOrderUserWrong = () => {
+        firebase.getUserOrder().where('uid', '==', userSession.uid).get().then(function (querySnapshot) {
+            querySnapshot.forEach(doc => {
+
+                const futurOrder = doc.data().futurOrder;
+                const idToDelete = datas.id
+
+                firebase.getUserOrder().doc(userSession.uid).update({
+                    futurOrder: futurOrder.filter(getId => getId.id !== idToDelete)
+                })
+                    .catch(function (error) {
+                        console.error("Error removing document: ", error);
+                    });
+
+            })
+
+        })
+    }
 
 
     return userSession === null ? (
@@ -122,7 +144,7 @@ export default function Payment(props) {
                             <div className="btn-validate-come-back">
                                 <button className="btn-payment" onClick={userPayment}>Procéder au payement</button>
 
-                                <Link className="btn-payment" to="welcome">Revenir à mes choix</Link>
+                                <Link className="btn-payment" onClick={deleteLastOrderUserWrong} to="welcome">Revenir à mes choix</Link>
                             </div>
                         </div>
                         <div className="img-commande">

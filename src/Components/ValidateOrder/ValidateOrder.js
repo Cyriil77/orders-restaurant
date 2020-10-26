@@ -52,23 +52,27 @@ export default function ValidateOrder(props) {
 
     const handleClick = () => {
         let lastId;
-        firebase.getUserOrder().where('uid', '==', userSession.uid).get().then(querySnapshot => {
-            querySnapshot.forEach((doc) =>
-                lastId = doc.data().futurOrder[doc.data().futurOrder.length - 1].id,
-            )
-        }).then(() => {
-            datas === null ? firebase.addOrder(userSession.uid, userSession.email, contextOrder) : firebase.getUserOrder().doc(userSession.uid).update({
 
-                futurOrder: firebase.addInArray().arrayUnion({
-                    id: lastId + 1,
-                    isPay: false,
-                    date: new Date(),
-                    obj: contextOrder
+        if (datas === null) {
+            firebase.addOrder(userSession.uid, userSession.email, contextOrder)
+        } else {
+            firebase.getUserOrder().where('uid', '==', userSession.uid).get().then(querySnapshot => {
+                querySnapshot.forEach((doc) =>
+                    lastId = doc.data().futurOrder[doc.data().futurOrder.length - 1].id,
+                )
+            }).then(() => {
+                firebase.getUserOrder().doc(userSession.uid).update({
+
+                    futurOrder: firebase.addInArray().arrayUnion({
+                        id: lastId + 1,
+                        isPay: false,
+                        date: new Date(),
+                        obj: contextOrder
+                    })
+        
                 })
-    
             })
-        })
-
+        }
 
 
 

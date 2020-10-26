@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 import orderContext from '../ContextOrder/ContextOrder';
 
@@ -23,6 +23,7 @@ export default function Orders(props) {
 
         setOrders(orders + 1);
 
+
         for (let i = 0; i < order.length; i++) {
 
             // Verify if index is push
@@ -33,15 +34,16 @@ export default function Orders(props) {
             }
 
         }
+        
 
         if (found) {
             // Update quantity
-            order[index].quantity = orders;
+            order[index].quantity = orders + 1;
 
         } else {
             // Push value in context
             order.push({
-                quantity: orders,
+                quantity: orders + 1,
                 name: props.name,
                 id: props.id,
                 price: props.price,
@@ -66,10 +68,11 @@ export default function Orders(props) {
 
         if (found) {
             // Update quantity
-            order[index].quantity = orders;
+            order[index].quantity = orders - 1;
         }
 
     };
+
 
     return (
 

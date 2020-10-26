@@ -65,13 +65,9 @@ export default function Admin(props) {
     // Verify Session
     useEffect(() => {
 
-        let listener = firebase.auth.onAuthStateChanged(user => {
+        firebase.auth.onAuthStateChanged(user => {
             user ? setUserSession(user) : props.history.push('/');
         })
-
-        return () => {
-            listener();
-        }
     }, [userSession]);
 
 

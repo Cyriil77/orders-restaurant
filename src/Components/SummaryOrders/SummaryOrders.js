@@ -42,6 +42,7 @@ export default function SummaryOrders(props) {
 
     }, [userSession]);
 
+
     return userSession === null ? (
         <div>
             <p>Chargement...</p>
@@ -52,9 +53,9 @@ export default function SummaryOrders(props) {
                 <Header email={userSession.email} />
 
                 <h1 className="title-page">Récapitulatif</h1>
-                <hr/>
+                <hr />
 
-                {datas === null ? <div>Chargement ...</div> :
+                {datas === null || datas === undefined ? <div>Vous n'avez effectué aucun achat</div> :
 
                     <>
 
@@ -76,7 +77,7 @@ export default function SummaryOrders(props) {
 
                                     // Get date of all datas
                                     let date = new Date(elem.date.seconds * 1000)
-                                    
+
 
                                     return elem.obj.map((el, key) => {
 
@@ -98,7 +99,7 @@ export default function SummaryOrders(props) {
                                 })}
 
                             </tbody>
-                            
+
                         </table>
 
                     </>
