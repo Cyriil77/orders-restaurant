@@ -73,11 +73,11 @@ export default function ValidateOrder(props) {
                 })
             })
         }
+    }
 
-
-
-
-
+    const div= document.querySelectorAll('.ctnr-datas')
+    if (div.length % 3 === 0) {
+        const hr = document.createElement('hr')
     }
 
     return (

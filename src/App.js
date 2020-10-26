@@ -8,6 +8,7 @@ import ErrorPage from './Components/ErrorPage/ErrorPage';
 import Admin from './Components/Admin/Admin';
 import Commande from './Components/Commande/Commande';
 import summaryOrders from './Components/SummaryOrders/SummaryOrders';
+import Payment from './Components/Payment/Payment';
 
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/admin" component={Admin}/>
           <Route path="/commande" component={Commande}/>
           <Route path="/summaryOrders" component={summaryOrders}/>
+          <Route path="/payment" component={Payment}/>
           <Route component={ErrorPage} />
         </Switch>
 

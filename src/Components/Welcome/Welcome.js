@@ -12,6 +12,7 @@ import FirebaseContext from '../Firebase/Context';
 
 // Context order
 import ContextOrder from '../ContextOrder/ContextOrder';
+import SearchOrder from '../SearchOrder/SearchOrder';
 
 
 
@@ -69,10 +70,7 @@ export default function Welcome(props) {
 
                     <ContextOrder.Provider value={[]}>
 
-                        {/* send datas orders for the orders component */}
-                        {order.map((datas, index, key) => (
-                            <Orders key={datas.id} name={datas.nom} price={datas.prix} compositions={datas.compo} uid={userSession.uid} id={datas.id} />
-                        ))}
+                    <SearchOrder datas={order} />
 
                         <ValidateOrder />
 

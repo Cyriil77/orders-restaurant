@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-// import Payment from '../Payment/Payment';
+import Payment from '../Payment/Payment';
 
 import background from '../../image/Payment.png'
 import './style.css'
@@ -11,7 +11,7 @@ import './style.css'
 // Firebase context (methods)
 import FirebaseContext from '../Firebase/Context';
 
-export default function Payment(props) {
+export default function Commande(props) {
 
     const firebase = useContext(FirebaseContext);
 
@@ -53,10 +53,8 @@ export default function Payment(props) {
 
 
     const userPayment = () => {
-
-        // <Payment />
-
         //deleteId is the id from the post you want to delete
+
 
         firebase.getUserOrder().where('uid', '==', userSession.uid).get().then(function (querySnapshot) {
             querySnapshot.forEach(doc => {
@@ -121,6 +119,7 @@ export default function Payment(props) {
             <>
                 <Header email={userSession.email} />
 
+
                 <h1 className="title-page">Commande</h1>
 
                 <hr />
@@ -129,7 +128,6 @@ export default function Payment(props) {
 
                     <section className="container-commande">
                         <div className="container-datas-btn">
-                            {console.log(datas)}
                             {datas !== undefined && datas.isPay !== true ?
                                 <div>
                                     <p>Vérification de votre commande:</p>
