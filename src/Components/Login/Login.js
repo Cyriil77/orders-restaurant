@@ -51,55 +51,62 @@ export default function Login(props) {
     };
 
     const error = err !== '' && <span>{err.message}</span>;
-
+    console.log(error)
 
     return (
-        <div className="container">
+        <div className="container-fluid">
+            <div className="row">
 
-            <form className="form" onSubmit={handleSubmit}>
+                <form className="form d-flex flex-column justify-content-center align-items-center col-xl-6 col-lg-6 col-md-12 col-sm-12" onSubmit={handleSubmit}>
+                    <div className="ctnr-form shadow col-xl-10 col-lg-12 col-md-10 col-sm-10 col-12">
 
-                <div className="ctnr-form">
-                    <h1 className="login">Se connecter</h1>
+                        <h1 className="login">Se connecter</h1>
 
-                    <div className="ctnr-input">
+                        {error !== false ? <div className="alert alert-danger" role="alert">
+                            {error}
+                        </div> : null}
+                        
 
-                        {error}
-
-                        <input
-                            type="text"
-                            placeholder="email"
-                            value={mail}
-                            onChange={handleChange}
-                            id="mail">
-                        </input>
-
-                        <input
-                            type="password"
-                            placeholder="Mot de passe"
-                            value={password}
-                            onChange={handleChange}
-                            id="password">
-                        </input>
-
-                        <div>
+                        <div className="ctnr-input d-flex flex-column col-xl-10 col-lg-10 col-md-8 col-sm-10 col-12">
+                        <label for="email"><strong>E-mail:</strong></label>
                             <input
-                                type="submit">
+                                type="text"
+                                placeholder="email"
+                                value={mail}
+                                onChange={handleChange}
+                                id="mail"
+                            >
                             </input>
 
-                            <Link to='signup'> Mot de passe oublié ?</Link>
+                            <label className="mt-4" for="password"><strong>Mot de passe:</strong> </label>
+                            <input
+                                type="password"
+                                placeholder="Mot de passe"
+                                value={password}
+                                onChange={handleChange}
+                                id="password"
+                                className="mb-4">
+                            </input>
+
+                            {/* sm-d-flex sm-flex-column sm-align-items-start */}
+                            <div className="justify-content-between d-flex ">
+                                <input
+                                className="btn btn btn-secondary"
+                                    type="submit">
+                                </input>
+
+                                <Link className="my-3" to='signup'> Mot de passe oublié ?</Link>
+                            </div>
+                            <Link className="my-3" to='signup'> Pas encore inscrit ? <span>S'inscrire</span>  </Link>
                         </div>
-
-                        <Link className="not-signup" to='signup'> Pas encore inscrit ? <span>S'inscrire</span>  </Link>
                     </div>
+                </form>
+
+
+                <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <img src={background}></img>
                 </div>
-
-            </form>
-
-
-            <div className="ctnr-img">
-                <img src={background}></img>
             </div>
-
         </div>
     )
 }

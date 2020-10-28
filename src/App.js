@@ -9,12 +9,15 @@ import Admin from './Components/Admin/Admin';
 import Commande from './Components/Commande/Commande';
 import summaryOrders from './Components/SummaryOrders/SummaryOrders';
 import Payment from './Components/Payment/Payment';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
+
 
 
 export default function App() {
   
   return (
-    <div>
+    <>
 
       <Router>
 
@@ -33,6 +36,6 @@ export default function App() {
 
       </Router>
 
-    </div>
+    </>
   )
 }

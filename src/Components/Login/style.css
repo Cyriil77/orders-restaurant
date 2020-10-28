@@ -3,29 +3,11 @@ body{
     padding: 0;
 }
 
-.container{
-    display: flex;
-    height: 100vh;
-}
-
-/* Formulaire */
-.form{
-    width: 40%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 .ctnr-form{
-    width: 70%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgba(0,0,0,0.09);
-    border-radius: 20px;
-    height: 60%;
-    justify-content: space-around;
+    background-color: #e6e6e6;
 }
 
 .login{
@@ -35,53 +17,30 @@ body{
     padding: 35px;
 }
 
-.ctnr-input{
-    width: 70%;
-    display: flex;
-    flex-direction: column;
-    border-radius: 10px;
-    padding: 35px;
-}
-
 .ctnr-input input{
     padding: 12px;
     border-radius: 5px;
     border: none;
 }
 
-.ctnr-input input[type="password"]{
-    margin: 30px 0;
-}
-
-.ctnr-input input[type="submit"]{
+/* .ctnr-input input[type="submit"]{
     width: 30%;
     border: none;
     cursor: pointer;
     background-color: #665df5;
     color: white;
-}
+} */
 
 .ctnr-input a{
-    text-decoration: none;
-    color: black;
+    text-decoration: none !important;
+    color: black !important;
 }
 
 .ctnr-input a span:hover{
-    border-bottom: 1px solid white;
-    color: #665df5;;
+    border-bottom: 1px solid white !important;
+    color: #665df5 !important;
 }
 
-.ctnr-input div{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.not-signup{
-    margin-top: 15px;
-}
-
-/* Image */
 .ctnr-img{
     width: 60%;
     display: flex;
@@ -90,4 +49,4 @@ body{
 
 img{
     width: 100%;
-}
+} 

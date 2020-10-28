@@ -9,8 +9,7 @@ export default function Landing() {
 
     return (
 
-        <>
-
+        <div className="container">
             <h1 className="title">Passez une commande</h1>
 
             <div className="ctnr-img-redirection">
@@ -23,6 +22,6 @@ export default function Landing() {
 
             </div>
 
-        </>
+        </div>
     )
 }

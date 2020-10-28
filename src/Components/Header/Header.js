@@ -46,26 +46,31 @@ export default function Header(props) {
     ) : (
             <header>
 
-                <h2>
-                    Bonjour {props.email}
-                </h2>
+                <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <a className="navbar-brand" href="#">Logo</a>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarText">
+                        <ul className="navbar-nav mr-auto">
+                            <li className="nav-item active">
 
-                <div className="nav-disconnected">
-
-                    <nav>
-                        <ul>
-                            <li>
-                                <Link to="welcome">Accueil</Link>
-                                <Link to="commande">Commande</Link>
-                                <Link to="summaryOrders">Récapitulatif</Link>
-                                <Link to="admin">Admin</Link>
+                                <Link className="nav-link" to="welcome">Accueil</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="commande">Commande</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="summaryOrders">Récapitulatifs</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="admin">Administrateur</Link>
                             </li>
                         </ul>
-                    </nav>
 
-                    <button onClick={firebase.signoutUser}>Se déconnecter</button>
-
-                </div>
+                        <button className="btn btn-light" onClick={firebase.signoutUser}>Se déconnecter</button>
+                    </div>
+                </nav>
             </header>
 
         )

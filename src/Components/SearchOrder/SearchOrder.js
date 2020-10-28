@@ -20,12 +20,18 @@ export default function SearchOrder(props) {
 
     return (
         <>
-            <input type="text" placeholder="Rechercher un plat" value={search} onChange={updateSearch} />
-            <div className="container-orders">
+            {/* <label>Rechercher un plat:</label>
+            <input type="search" className="my-4" placeholder="Rechercher un plat" value={search} onChange={updateSearch} /> */}
+
+            <input type="search" className="form-control w-25 my-4"
+             id="search-input" placeholder="Rechercher un plat..." autoComplete="off" alue={search} onChange={updateSearch} role="combobox"></input>
+            <section className="row justify-content-center">
+
                 {filteredOrder.map((datas, index, key) => (
                     <Orders key={datas.id} name={datas.nom} price={datas.prix} compositions={datas.compo} id={datas.id} />
                 ))}
-            </div>
+
+            </section>
         </>
     )
 }

@@ -34,7 +34,7 @@ export default function Orders(props) {
             }
 
         }
-        
+
 
         if (found) {
             // Update quantity
@@ -74,38 +74,35 @@ export default function Orders(props) {
     };
 
 
-
+    // style="width: 18rem;"
     return (
 
-        <div className="ctnr-datas">
-
-            <div className="datas">
-                <li key={props.id}>
-                    Nom: {props.name}
-                </li>
-
-                <li>
-                    Compositions: {props.compositions}
-                </li>
-
-                <li>
-                    Prix: {props.price}€
-                </li>
+        <div className="card m-2 shadow" key={props.id} >
+            <div className="card-body">
+                <h5 className="card-title">{props.name}</h5>
+                <p className="card-text">{props.price}€</p>
             </div>
-            <input
-                type="button"
-                value="Ajouter"
-                onClick={addQuantity}>
-            </input>
+            <ul className="list-group list-group-flush">
+                <li  className="list-group-item">Compositions: {props.compositions}</li>
 
-            <input
-                type="button"
-                value="Diminuer"
-                onClick={removeQuantity}>
-            </input>
-
-            <p>Vous souhaitez {orders} {props.name}</p>
-
+                <li className="list-group-item">
+                    Quantité souhaitée: {orders}
+                </li>
+            </ul>
+            <div className="card-body">
+                <input
+                    type="button"
+                    value="Ajouter"
+                    className="card-link btn btn-outline-success"
+                    onClick={addQuantity}>
+                </input>
+                <input
+                    type="button"
+                    value="Diminuer"
+                    className="card-link btn btn-outline-danger"
+                    onClick={removeQuantity}>
+                </input>
+            </div>
         </div>
 
     )

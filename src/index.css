@@ -28,7 +28,7 @@ code {
   font-style: normal;
 }
 
-h1, h2, thead tr th{
+h1, h2, thead tr th, span{
   font-family: 'Montserrat';
   font-weight: bold;
 }
@@ -43,5 +43,10 @@ input[type], button, a{
 }
 
 .title-page{
-  margin-left: 5%;
+  margin: 15px 0;
+}
+
+
+a:focus, input[type="button"]:focus {
+  outline: none;
 }

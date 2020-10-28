@@ -12,8 +12,8 @@ export default function ValidateOrder(props) {
     const firebase = useContext(FirebaseContext);
 
     const [userSession, setUserSession] = useState(null);
-    const [datas, setDatas] = useState(null)
-    // const [number, setNumber] = useState(0)
+    const [datas, setDatas] = useState(null);
+    // const [isDisabled, setIsDisabled] = useState(true);
 
 
     useEffect(() => {
@@ -23,7 +23,7 @@ export default function ValidateOrder(props) {
             user ? setUserSession(user) : props.history.push('/');
 
 
-            firebase.getUserOrder().where('uid', '==', user.uid).get().then(function (querySnapshot) {
+            firebase.getUserOrder().where('uid', '==', user.uid).get().then( querySnapshot => {
 
                 querySnapshot.forEach(doc => {
                     // If 0 order is push set datas = null
@@ -38,15 +38,14 @@ export default function ValidateOrder(props) {
                 result.forEach(element => {
                     setDatas(element);
                 });
-
+            }).catch(err => {
+                console.log(err)
             })
 
         })
 
     }, [userSession]);
 
-    // Effacer seulement le dernier dans commande.js
-    // passez datas à autre chose que null dans validateOrder.js
 
 
 
@@ -71,6 +70,8 @@ export default function ValidateOrder(props) {
                     })
         
                 })
+            }).catch(err => {
+                console.log(err)
             })
         }
     }
@@ -85,7 +86,7 @@ export default function ValidateOrder(props) {
 
             <div className="validate-order">
                 <hr className="line-validate" />
-                <Link to="commande" onClick={handleClick}>Valider votre commande</Link>
+                <Link className="btn btn-outline-success" to="commande" onClick={handleClick}>Valider votre commande</Link>
 
 
             </div>

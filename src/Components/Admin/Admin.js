@@ -25,7 +25,8 @@ export default function Admin(props) {
     const { name, price, compositions } = orders;
 
     const [userSession, setUserSession] = useState(null);
-    const input = document.querySelector('.send-datas')
+    const [isDisabled, setIsDisabled] = useState(true);
+    const input = document.querySelector('.send-datas');
 
 
 
@@ -40,11 +41,7 @@ export default function Admin(props) {
                 datas = doc.data().id
             )
 
-            // Add orders in firebase
-            if({...datas} == ""){
-                console.log('vide')
-            }
-            firebase.setMenu(name, price, compositions, datas + 1)
+            firebase.setMenu(name, price, compositions, datas + 1);
 
 
         }).catch(error => console.log(error));
@@ -57,12 +54,16 @@ export default function Admin(props) {
     const handleChange = (e) => {
         setOrders({ ...orders, [e.target.id]: e.target.value });
         if (name !== '' && price !== '' && compositions !== '') {
-            input.removeAttribute('disabled');
+            setIsDisabled(false);
             input.style.color = '#665df5';
+        } else if (isDisabled === false) {
+            input.style.removeProperty('color');
+            setIsDisabled(true);
+
         }
     };
 
-    // Verify Session
+
     useEffect(() => {
 
         firebase.auth.onAuthStateChanged(user => {
@@ -77,47 +78,52 @@ export default function Admin(props) {
             <p>Chargement...</p>
         </div>
     ) : (
-        <>
-            <Header email={userSession.email}/>
-            <div>
-                <h1 className="title-page">Ajouter un plat</h1>
-                <hr />
+            <>
+                <Header email={userSession.email} />
+                <main className="container-fluid min-height">
+                    <h1 className="title-page">Ajouter un plat</h1>
+                    <hr />
 
-                <form className="form-admin" onSubmit={handleSubmit}>
+                    <div className="d-flex justify-content-center align-items-center col-xl-12 col-lg-12 col-md-10 col-sm-10 col-12">
+                        <form class="text-center border border-light col-xl-6 col-lg-12 col-md-10 col-sm-10 col-12 p-5" action="#!">
 
-                    <div>
-                        <label>Nom du plat:</label>
-                        <input type="text"
-                            placeholder="pate boulo"
-                            id="name"
-                            value={name}
-                            onChange={handleChange}>
-                        </input>
+                            <label>Nom du plat:</label>
+                            <input type="text"
+                                placeholder="pate boulo"
+                                id="name"
+                                value={name}
+                                onChange={handleChange}
+                                className="form-control mb-4">
+                            </input>
+                            <label>Prix:</label>
+                            <input type="number"
+                                placeholder="10"
+                                id="price"
+                                value={price}
+                                onChange={handleChange}
+                                min="0"
+                                className="form-control mb-4">
+                            </input>
 
-                        <label>Prix:</label>
-                        <input type="number"
-                            placeholder="10"
-                            id="price"
-                            value={price}
-                            onChange={handleChange}
-                            min="0">
-                        </input>
 
-                        <label>Compositions:</label>
-                        <input type="text"
-                            placeholder="pate, bolognaise, oignons"
-                            id="compositions"
-                            value={compositions}
-                            onChange={handleChange}>
-                        </input>
+                            <label>Compositions:</label>
+                            <input type="text"
+                                placeholder="pate, bolognaise, oignons"
+                                id="compositions"
+                                value={compositions}
+                                onChange={handleChange}
+                                className="form-control mb-4">
+                            </input>
 
-                        <input disabled className="send-datas" type="submit"></input>
+                            <input type="submit" disabled={isDisabled} class="btn btn-info btn-block" value="Valider"></input>
 
+
+                        </form>
                     </div>
-
-                </form>
-            </div>
-            <Footer />
-        </>
-    )
+                </main>
+                <Footer />
+            </>
+        )
 }
+
+

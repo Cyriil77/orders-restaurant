@@ -1,4 +1,4 @@
-table{
+/* table{
     margin: 80px auto;
     width: 90%;
     display: flex;
@@ -35,4 +35,12 @@ tbody tr td{
     text-align: center;
     border-bottom: 1px solid black;
     padding: 8px 12px;
+}
+
+tr:nth-child(even){
+    background-color: skyblue;
+} */
+
+.min-height{
+    min-height: 72.7vh;
 }

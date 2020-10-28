@@ -58,57 +58,59 @@ export default function Signup(props) {
 
 
     return (
-        <div className="container">
 
-            {error}
-            <form className="form" onSubmit={handleSubmit}>
+        <div className="container-fluid">
+            <div className="row">
 
-                <div className="ctnr-form">
-                    <h1 className="login">S' inscrire</h1>
+                <form className="form d-flex flex-column justify-content-center align-items-center col-xl-6 col-lg-6 col-md-12 col-sm-12" onSubmit={handleSubmit}>
+                    <div className="ctnr-form shadow col-xl-10 col-lg-12 col-md-10 col-sm-10 col-12">
 
-                    <div className="ctnr-input">
-                        <input
-                            type="text"
-                            placeholder="email"
-                            value={mail}
-                            onChange={handleChange}
-                            id="mail">
-                        </input>
+                        <h1 className="login">S' inscrire</h1>
 
-                        <input
-                            type="password"
-                            placeholder="Mot de passe"
-                            value={password}
-                            onChange={handleChange}
-                            id="password">
-                        </input>
+                        {error !== false ? <div className="alert alert-danger" role="alert">
+                            {error}
+                        </div> : null}
 
-                        <div>
+
+                        <div className="ctnr-input d-flex flex-column col-xl-10 col-lg-10 col-md-8 col-sm-10 col-12">
+                            <label for="email"><strong>E-mail:</strong></label>
                             <input
-                                type="submit">
+                                type="text"
+                                placeholder="email"
+                                value={mail}
+                                onChange={handleChange}
+                                id="mail"
+                            >
                             </input>
 
-                            <Link to='signup'> Mot de passe oublié ?</Link>
+                            <label className="mt-4" for="password"><strong>Mot de passe:</strong> </label>
+                            <input
+                                type="password"
+                                placeholder="Mot de passe"
+                                value={password}
+                                onChange={handleChange}
+                                id="password"
+                                className="mb-4">
+                            </input>
+
+                            {/* sm-d-flex sm-flex-column sm-align-items-start */}
+                            <div className="justify-content-between d-flex ">
+                                <input
+                                    type="submit"
+                                    className="btn btn-secondary">
+                                </input>
+
+                                <Link className="my-3" to='login'> Déjà insrit ? <span>Se connecter</span>  </Link>
+                            </div>
 
                         </div>
-
-                        <Link className="not-signup" to='login'> Déjà insrit ? <span>Se connecter</span>  </Link>
-
                     </div>
+                </form>
+
+
+                <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <img src={background}></img>
                 </div>
-
-
-
-
-
-
-
-
-            </form>
-
-
-            <div className="ctnr-img">
-                <img src={background} alt="fond"></img>
             </div>
         </div>
     )

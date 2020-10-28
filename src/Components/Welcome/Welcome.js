@@ -30,8 +30,8 @@ export default function Welcome(props) {
 
     useEffect(() => {
 
-        let listener = firebase.auth.onAuthStateChanged(user => {
-            user ? setUserSession(user.email) : props.history.push('/');
+        firebase.auth.onAuthStateChanged(user => {
+            user ? setUserSession(user) : props.history.push('/');
         })
 
         firebase.displayOrder().get().then(querySnapshot => {
@@ -45,11 +45,7 @@ export default function Welcome(props) {
             console.log(error)
         );
 
-
-        return () => {
-            listener()
-        }
-    }, []);
+    }, [userSession]);
 
 
     return userSession === null ? (
@@ -59,28 +55,28 @@ export default function Welcome(props) {
         </div>
 
     ) : (
-            <div>
+            <>
 
                 <Header email={userSession.email} />
 
-                <h1 className="title-page">Choix de vos commandes</h1>
-                <hr/>
+                <main className="container-fluid">
 
-                <section className="container-orders">
+                    <h1 className="title-page">Choix de vos commandes</h1>
+                    <hr/>
 
                     <ContextOrder.Provider value={[]}>
 
-                    <SearchOrder datas={order} />
+                        <SearchOrder datas={order} />
 
                         <ValidateOrder />
 
                     </ContextOrder.Provider>
 
-                </section>
+                </main>
 
                 <Footer />
 
-            </div>
+            </>
 
         )
 

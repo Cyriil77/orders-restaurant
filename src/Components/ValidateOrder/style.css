@@ -1,5 +1,5 @@
 hr{
-    margin-left: 5%;
+    margin: 0;
     width: 60%;
     background-color: black;
 }
@@ -13,7 +13,7 @@ hr{
     margin-left: 0;
     margin-bottom: 40px;
 }
-
+/* 
 .validate-order a{
     text-decoration: none;
     color: white;
@@ -22,4 +22,4 @@ hr{
     border-radius: 4px;
     border: none;
     cursor: pointer;
-}
+} */
