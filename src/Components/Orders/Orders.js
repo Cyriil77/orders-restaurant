@@ -15,7 +15,6 @@ export default function Orders(props) {
     // Context for send datas
     const order = useContext(orderContext);
 
-
     let found = false;
     let index = 0;
 

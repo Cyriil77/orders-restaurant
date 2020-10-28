@@ -23,7 +23,7 @@ export default function SearchOrder(props) {
             {/* <label>Rechercher un plat:</label>
             <input type="search" className="my-4" placeholder="Rechercher un plat" value={search} onChange={updateSearch} /> */}
 
-            <input type="search" className="form-control w-25 my-4"
+            <input type="search" className="form-control w-50 my-4"
              id="search-input" placeholder="Rechercher un plat..." autoComplete="off" alue={search} onChange={updateSearch} role="combobox"></input>
             <section className="row justify-content-center">
 

@@ -22,18 +22,14 @@ export default function ValidateOrder(props) {
         firebase.auth.onAuthStateChanged(user => {
             user ? setUserSession(user) : props.history.push('/');
 
+            firebase.getUserOrder().doc(user.uid).get().then(querySnapshot => {
 
-            firebase.getUserOrder().where('uid', '==', user.uid).get().then( querySnapshot => {
-
-                querySnapshot.forEach(doc => {
-                    // If 0 order is push set datas = null
-                    if (doc.data().futurOrder == undefined) {
-                        return;
-                    } else {
-                        result.push(doc.data().futurOrder[0].obj);
-                    }
-                })
-
+                // If 0 order is push set datas = null
+                if (querySnapshot.data().futurOrder == undefined) {
+                    return;
+                } else {
+                    result.push(querySnapshot.data().futurOrder[0].obj);
+                }
             }).then(() => {
                 result.forEach(element => {
                     setDatas(element);
@@ -41,9 +37,7 @@ export default function ValidateOrder(props) {
             }).catch(err => {
                 console.log(err)
             })
-
         })
-
     }, [userSession]);
 
 
@@ -55,10 +49,8 @@ export default function ValidateOrder(props) {
         if (datas === null) {
             firebase.addOrder(userSession.uid, userSession.email, contextOrder)
         } else {
-            firebase.getUserOrder().where('uid', '==', userSession.uid).get().then(querySnapshot => {
-                querySnapshot.forEach((doc) =>
-                    lastId = doc.data().futurOrder[doc.data().futurOrder.length - 1].id,
-                )
+            firebase.getUserOrder().doc(userSession.uid).get().then(querySnapshot => {
+                lastId = querySnapshot.data().futurOrder[querySnapshot.data().futurOrder.length - 1].id
             }).then(() => {
                 firebase.getUserOrder().doc(userSession.uid).update({
 
@@ -68,7 +60,7 @@ export default function ValidateOrder(props) {
                         date: new Date(),
                         obj: contextOrder
                     })
-        
+
                 })
             }).catch(err => {
                 console.log(err)
@@ -76,7 +68,7 @@ export default function ValidateOrder(props) {
         }
     }
 
-    const div= document.querySelectorAll('.ctnr-datas')
+    const div = document.querySelectorAll('.ctnr-datas')
     if (div.length % 3 === 0) {
         const hr = document.createElement('hr')
     }

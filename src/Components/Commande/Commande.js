@@ -20,29 +20,30 @@ export default function Commande(props) {
     // Last order
     const [datas, setDatas] = useState(null);
 
-    const [isDisabled, setIsDisabled] = useState(true);
-    const input = document.querySelector('.btn-disabled');
-
     // Verify Session
     useEffect(() => {
-
-        let result;
 
         firebase.auth.onAuthStateChanged(user => {
             user ? setUserSession(user) : props.history.push('/');
 
             // Get actual user
             firebase.getUserOrder().doc(user.uid).get().then(function (querySnapshot) {
-                    if (querySnapshot.data().futurOrder !== undefined) {
+
+                if (querySnapshot.data() !== undefined) {
+                    if (querySnapshot.data().futurOrder.length > 1) {
                         const lastOrder = querySnapshot.data().futurOrder[querySnapshot.data().futurOrder.length - 1];
+                        // console.log('> 1 ', lastOrder)
+                        setDatas(lastOrder);
+                    } else if (querySnapshot.data().futurOrder.length === 1) {
+                        const lastOrder = querySnapshot.data().futurOrder[0]
+                        // console.log('=== 1 ', lastOrder)
                         setDatas(lastOrder);
                     }
+                }
             })
-
         })
-
-
     }, [userSession]);
+
 
 
     const userPayment = () => {
@@ -69,22 +70,21 @@ export default function Commande(props) {
                     obj: datas.obj
                 })
             })
-            .then(() => {
-                props.history.push('./summaryOrders');
-            }).then(() => {
-                alert('Votre paiement a bien été effectué');
-            })
+                .then(() => {
+                    props.history.push('./summaryOrders');
+                }).then(() => {
+                    alert('Votre paiement a bien été effectué');
+                })
         })
 
     };
 
     const deleteLastOrderUserWrong = () => {
-        firebase.getUserOrder().where('uid', '==', userSession.uid).get().then(function (querySnapshot) {
-            querySnapshot.forEach(doc => {
+        firebase.getUserOrder().doc(userSession.uid).get().then(function (querySnapshot) {
 
-                console.log()
-                if (doc.data().futurOrder.length === 0) {
-                    const futurOrder = doc.data().futurOrder;
+                console.log(querySnapshot.data())
+                if (querySnapshot.data().futurOrder.length > 1) {
+                    const futurOrder = querySnapshot.data().futurOrder;
                     const idToDelete = datas.id
 
                     firebase.getUserOrder().doc(userSession.uid).update({
@@ -94,7 +94,7 @@ export default function Commande(props) {
                     }).catch(function (error) {
                         console.error("Error removing document: ", error);
                     });
-                } else {
+                } else if(querySnapshot.data().futurOrder.length === 1) {
                     firebase.getUserOrder().doc(userSession.uid).delete().then(function () {
                         console.log("Document successfully deleted!");
                     }).catch(function (error) {
@@ -103,13 +103,14 @@ export default function Commande(props) {
 
                 }
 
-            })
+
 
         }).catch(function (error) {
             console.error(error);
         });
     }
 
+    console.log(datas)
     return userSession === null ? (
 
         <div>
@@ -124,46 +125,56 @@ export default function Commande(props) {
 
                     <hr />
 
-                    {datas === null ? <div>Chargement ...</div> :
-
-                        <section className="row">
-
-                            <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-
-                                <div className="card shadow p-4 col-xl-10 col-lg-12 col-md-9">
 
 
-                                    {datas !== undefined && datas.isPay !== true ?
-                                        <>
-                                            <div className="card-body">
+                    <section className="row">
+
+                        <div className="d-xl-flex align-items-xl-center my-4
+                            col-xl-6
+                            col-lg-6
+                            col-md-6
+                            col-sm-12"
+                        >
+
+                            <div className="card shadow p-4 col-xl-10 col-lg-12 col-md-12">
+
+
+                                {/* Verify if datas is in wait of payment */}
+                                {datas !== null && datas.isPay === false ?
+                                    <>
+                                        <div className="card-body">
                                             <h5 className="card-title">Vérification de votre commande:</h5>
-                                                <ul className="card-text">
-                                                    {datas.obj.map((elem, key) => {
-                                                        return <li key={key}> {elem.quantity} {elem.name} </li>
-                                                    })}
-                                                </ul>
-                                            </div>
-                                            <div className="d-flex flex-column w-75">
-                                                <input type="button" className="btn btn-outline-success my-2" value="Procéder au paiement" onClick={userPayment}></input>
-                                                <Link className="btn btn-outline-secondary" onClick={deleteLastOrderUserWrong} to="welcome">Revenir à mes choix</Link>
-                                            </div>
-                                        </>
+                                            <ul className="card-text">
+                                                {datas.obj.map((elem, key) => {
+                                                    return <li key={key}> {elem.quantity} {elem.name} </li>
+                                                })}
+                                            </ul>
+                                        </div>
+                                        <div className="d-flex flex-column w-75">
+                                            <input type="button" className="btn btn-outline-success my-2" value="Procéder au paiement" onClick={userPayment}></input>
+                                            <Link className="btn btn-outline-secondary" onClick={deleteLastOrderUserWrong} to="welcome">Revenir à mes choix</Link>
+                                        </div>
+                                    </>
 
-                                        : <>
-                                            <p>Vous n'avez aucune commande</p>
-                                            <Link className="btn btn-outline-secondary" to="welcome">Revenir à mes choix</Link>
-                                        </>
-                                    }
+                                    : <>
+                                        <p>Vous n'avez aucune commande</p>
+                                        <Link className="btn btn-outline-secondary" to="welcome">Revenir à mes choix</Link>
+                                    </>
+                                }
 
-                                </div>
                             </div>
-                            <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                                <img src={background}></img>
-                            </div>
+                        </div>
+                        <div className="d-none d-md-block
+                            col-xl-6
+                            col-lg-6
+                            col-md-6
+                            col-sm-12"
+                        >
+                            <img src={background}></img>
+                        </div>
 
-                        </section>
+                    </section>
 
-                    }
                 </main>
 
                 <Footer />

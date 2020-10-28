@@ -62,8 +62,18 @@ export default function Signup(props) {
         <div className="container-fluid">
             <div className="row">
 
-                <form className="form d-flex flex-column justify-content-center align-items-center col-xl-6 col-lg-6 col-md-12 col-sm-12" onSubmit={handleSubmit}>
-                    <div className="ctnr-form shadow col-xl-10 col-lg-12 col-md-10 col-sm-10 col-12">
+                <form className="form d-flex flex-column justify-content-center align-items-center
+                col-xl-6
+                col-lg-6
+                col-md-12
+                col-sm-12" onSubmit={handleSubmit}>
+                    <div className="ctnr-form shadow
+                     col-xl-10
+                     col-lg-12
+                     col-md-10
+                     col-sm-10
+                     col-12 
+                     my-sm-4 my-3">
 
                         <h1 className="login">S' inscrire</h1>
 
@@ -72,7 +82,12 @@ export default function Signup(props) {
                         </div> : null}
 
 
-                        <div className="ctnr-input d-flex flex-column col-xl-10 col-lg-10 col-md-8 col-sm-10 col-12">
+                        <div className="ctnr-input d-flex flex-column
+                        col-xl-10
+                        col-lg-10
+                        col-md-8
+                        col-sm-10
+                        col-12">
                             <label for="email"><strong>E-mail:</strong></label>
                             <input
                                 type="text"
@@ -108,7 +123,11 @@ export default function Signup(props) {
                 </form>
 
 
-                <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div className="d-none d-lg-block
+                col-xl-6
+                col-lg-6
+                col-md-12
+                col-sm-12 ">
                     <img src={background}></img>
                 </div>
             </div>

@@ -26,9 +26,8 @@ export default function Admin(props) {
 
     const [userSession, setUserSession] = useState(null);
     const [isDisabled, setIsDisabled] = useState(true);
+    const [isSucess, setIsSucess] = useState(false);
     const input = document.querySelector('.send-datas');
-
-
 
 
     const handleSubmit = (e) => {
@@ -42,12 +41,16 @@ export default function Admin(props) {
             )
 
             firebase.setMenu(name, price, compositions, datas + 1);
-
+            setIsSucess(true)
+            setTimeout(() => {
+                setIsSucess(false)
+            }, 2000);
 
         }).catch(error => console.log(error));
 
         // Reset inputs
         setOrders({ ...datas });
+
     }
 
     // Change state
@@ -55,14 +58,13 @@ export default function Admin(props) {
         setOrders({ ...orders, [e.target.id]: e.target.value });
         if (name !== '' && price !== '' && compositions !== '') {
             setIsDisabled(false);
-            input.style.color = '#665df5';
+            // input.style.color = '#665df5';
         } else if (isDisabled === false) {
-            input.style.removeProperty('color');
+            // input.style.removeProperty('color');
             setIsDisabled(true);
 
         }
     };
-
 
     useEffect(() => {
 
@@ -84,8 +86,21 @@ export default function Admin(props) {
                     <h1 className="title-page">Ajouter un plat</h1>
                     <hr />
 
-                    <div className="d-flex justify-content-center align-items-center col-xl-12 col-lg-12 col-md-10 col-sm-10 col-12">
-                        <form class="text-center border border-light col-xl-6 col-lg-12 col-md-10 col-sm-10 col-12 p-5" action="#!">
+                    <div className="d-flex justify-content-center align-items-center
+                        col-xl-12
+                        col-lg-12
+                        col-md-10
+                        col-sm-10 
+                        col-12"
+                    >
+                        <form onSubmit={handleSubmit} className="border .bg-light form-group
+                            col-xl-6
+                            col-lg-12
+                            col-md-10
+                            col-sm-10
+                            col-12
+                            p-5"
+                        >
 
                             <label>Nom du plat:</label>
                             <input type="text"
@@ -115,8 +130,12 @@ export default function Admin(props) {
                                 className="form-control mb-4">
                             </input>
 
-                            <input type="submit" disabled={isDisabled} class="btn btn-info btn-block" value="Valider"></input>
-
+                            <input type="submit" disabled={isDisabled} className="send-datas btn btn-dark btn-block" value="Valider"></input>
+                            {isSucess === true ?
+                                <div className="alert alert-success my-2" role="alert">
+                                    Votre plat a bien été pris en compte !
+                                </div> : null
+                            }
 
                         </form>
                     </div>

@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 
-import Orders from '../Orders/Orders';
 import ValidateOrder from '../ValidateOrder/ValidateOrder';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';

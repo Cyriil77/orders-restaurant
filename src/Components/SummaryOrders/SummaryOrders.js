@@ -20,14 +20,10 @@ export default function SummaryOrders(props) {
         firebase.auth.onAuthStateChanged(user => {
             user ? setUserSession(user) : props.history.push('/')
 
-            firebase.getUserOrder().where('uid', '==', user.uid).get().then(function (querySnapshot) {
-                querySnapshot.forEach(doc => {
+            firebase.getUserOrder().doc(user.uid).get().then(function (querySnapshot) {
 
-
-                    // Get all orders
-                    const order = doc.data().futurOrder;
-                    result.push(order);
-                })
+                const AllOrder = querySnapshot.data().futurOrder;
+                result.push(AllOrder);
 
             }).then(() => {
                 result.forEach((el) => {
@@ -58,7 +54,7 @@ export default function SummaryOrders(props) {
 
                         <>
 
-                            <table className="table">
+                            <table className="table sm-table-responsive">
 
                                 <thead className="thead-dark">
                                     <tr>
@@ -76,17 +72,17 @@ export default function SummaryOrders(props) {
 
                                         // Get date of all datas
                                         let date = new Date(elem.date.seconds * 1000)
-                                        const number = [0,1,2,3,4,5,6,7,8,9]
+                                        const number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                                         let minutes;
                                         for (let i = 0; i < number.length; i++) {
                                             const element = number[i];
-                                            if(date.getMinutes() === element){
+                                            if (date.getMinutes() === element) {
                                                 minutes = '0' + element
 
                                             }
                                             console.log(minutes)
                                         }
-                                        
+
                                         return elem.obj.map((el, key) => {
 
                                             const price = el.quantity * el.price;
@@ -99,8 +95,9 @@ export default function SummaryOrders(props) {
                                                     {date.getMonth() + 1}/
                                                     {date.getFullYear()}
                                                     à <strong>{date.getHours()}</strong>:
-                                                    {minutes !== undefined ?<strong>{minutes}</strong> : <strong>{date.getMinutes()}</strong>}:
-                                                    <strong>{date.getSeconds()}</strong></th>
+                                                    {minutes !== undefined ? <strong>{minutes}</strong> : <strong>{date.getMinutes()}</strong>}:
+                                                    <strong>{date.getSeconds()}</strong>
+                                                </th>
                                                 <td>{el.name}</td>
                                                 <td>{el.quantity}</td>
                                                 <td>{price}</td>

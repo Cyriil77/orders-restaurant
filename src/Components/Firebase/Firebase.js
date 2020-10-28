@@ -50,6 +50,8 @@ export default class Firebase {
         id: id,
     });
 
+    test = () => this.auth
+
     // Get datas
     displayOrder = () => this.orderDb;
 

@@ -57,18 +57,37 @@ export default function Login(props) {
         <div className="container-fluid">
             <div className="row">
 
-                <form className="form d-flex flex-column justify-content-center align-items-center col-xl-6 col-lg-6 col-md-12 col-sm-12" onSubmit={handleSubmit}>
-                    <div className="ctnr-form shadow col-xl-10 col-lg-12 col-md-10 col-sm-10 col-12">
+                <form className="form d-flex flex-column justify-content-center align-items-center
+                    col-xl-6
+                    col-lg-6
+                    col-md-12
+                    col-sm-12"
+                    onSubmit={handleSubmit}
+                >
+
+                    <div className="ctnr-form shadow
+                        col-xl-10
+                        col-lg-12
+                        col-md-10
+                        col-sm-10 my-sm-4
+                        col-12 my-3"
+                    >
 
                         <h1 className="login">Se connecter</h1>
 
                         {error !== false ? <div className="alert alert-danger" role="alert">
                             {error}
                         </div> : null}
-                        
 
-                        <div className="ctnr-input d-flex flex-column col-xl-10 col-lg-10 col-md-8 col-sm-10 col-12">
-                        <label for="email"><strong>E-mail:</strong></label>
+
+                        <div className="ctnr-input d-flex flex-column
+                            col-xl-10
+                            col-lg-10
+                            col-md-8
+                            col-sm-10
+                            col-12"
+                        >
+                            <label for="email"><strong>E-mail:</strong></label>
                             <input
                                 type="text"
                                 placeholder="email"
@@ -91,7 +110,7 @@ export default function Login(props) {
                             {/* sm-d-flex sm-flex-column sm-align-items-start */}
                             <div className="justify-content-between d-flex ">
                                 <input
-                                className="btn btn btn-secondary"
+                                    className="btn btn btn-secondary"
                                     type="submit">
                                 </input>
 
@@ -103,7 +122,12 @@ export default function Login(props) {
                 </form>
 
 
-                <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div className="d-none d-lg-block
+                    col-xl-6
+                    col-lg-6
+                    col-md-12
+                    col-sm-12"
+                >
                     <img src={background}></img>
                 </div>
             </div>
